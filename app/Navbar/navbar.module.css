@@ -1,0 +1,29 @@
+.socicon{
+      color: #5AB1C6;
+      font-size: 22px;
+}
+.login{
+color:white;
+
+}
+.links{
+      color: white;
+      width: 100%;
+}
+.navround{
+      border-radius: 0 0 0 15px ;
+      background-color: #012F5A;
+}
+.social{
+      font-size: 20px;
+      background-color: #5AB1C6;
+}
+.socialround{
+      border-radius: 0 0 50px 15px;
+}
+.main-color{
+      color:#012F5A;
+}
+.sec-color{
+      color:#5AB1C6;
+}

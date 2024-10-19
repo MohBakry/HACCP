@@ -1,6 +1,9 @@
 import localFont from "next/font/local";
 import "./globals.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css'
 
+import Navbar from "./Navbar/Navbar";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -18,10 +21,14 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  console.log('Nav...');
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <Navbar></Navbar>
+        
         {children}
+        <h1>Footer</h1>
       </body>
     </html>
   );
