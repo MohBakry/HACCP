@@ -5,14 +5,39 @@
 
 .login {
       color: white;
-
 }
 
+.logoSub{
+      display: none;
+}
 .links {
       color: white;
       width: 100%;
       font-size: 20px;
-
+}
+@media (max-width: 1180px) {
+      .links {
+          font-size: 16px;
+          text-align: center;
+      }
+      .socicon{
+            font-size: 20px;
+      }
+      .logos{
+            display: none; 
+           }
+      .logoSub{
+            display: flex;
+            justify-content: center;
+      }
+    
+  }
+ 
+  
+.activLink{
+      font-weight: 400;
+      color: #5AB1C6;
+      font-size: 20px;
 }
 
 .navround {
@@ -29,10 +54,10 @@
       border-radius: 0 0 50px 15px;
 }
 
-.main-color {
-      color: #012F5A;
+.mainBg {
+      background-color: #012F5A;
 }
 
-.sec-color {
-      color: #5AB1C6;
+.secBg {
+      background-color: #5AB1C6 !important;
 }
