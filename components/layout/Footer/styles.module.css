@@ -4,24 +4,38 @@
   color: white;
 }
 
-.footer-logo {
+.footerLogo {
   margin-bottom: 1rem;
 }
 
-.footer .social-icons a {
-  margin-right: 15px;
+.footer .links li a {
+  /* margin-bottom: 30px; */
   color: white;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 1rem;
 }
 
-.footer .social-icons a:hover {
+.footer .info li {
+  font-size: 1rem;
+}
+
+.footer .socialIcons a:hover {
   color: #00aaff; /* Change color on hover */
 }
-
+.footer .infoIcon {
+  color: #5ab0c6;
+  padding-right: 15px;
+  font-size: 24px;
+}
 .footer h5 {
   margin-bottom: 1rem;
+  color: #5ab0c6;
+  text-decoration: underline;
+  font-size: 32px;
 }
 
-.footer-bottom {
+.footerBottom {
   background-color: #5ab0c6; /* Lighter blue color */
 }
 .socicon {

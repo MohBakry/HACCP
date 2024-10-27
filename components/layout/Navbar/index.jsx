@@ -24,7 +24,7 @@ export default function Navbar() {
   ];
   return (
     <>
-      <nav className="navbar fixed-top navbar-expand-md navbar-light bg-body bg-opacity-75 py-0 g ">
+      <nav className="navbar  fixed-top navbar-expand-md navbar-light bg-body bg-opacity-75 py-0 g ">
         <div className="container-fluid p-0 ">
           <div className="navbar-brand py-0">
             <Link href="/">
