@@ -1,0 +1,30 @@
+/* styles/globals.css */
+.footer {
+  background-color: #012f5a; /* Dark background color */
+  color: white;
+}
+
+.footer-logo {
+  margin-bottom: 1rem;
+}
+
+.footer .social-icons a {
+  margin-right: 15px;
+  color: white;
+}
+
+.footer .social-icons a:hover {
+  color: #00aaff; /* Change color on hover */
+}
+
+.footer h5 {
+  margin-bottom: 1rem;
+}
+
+.footer-bottom {
+  background-color: #5ab0c6; /* Lighter blue color */
+}
+.socicon {
+  color: white;
+  font-size: 22px;
+}
