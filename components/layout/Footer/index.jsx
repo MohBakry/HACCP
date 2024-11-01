@@ -15,7 +15,7 @@ export default function Footer() {
   const breakpoints = [
     // { minWidth: 0, maxWidth: 576, width: 300, height: 200 }, // Extra small devices (phones)
     // { minWidth: 576, maxWidth: 768, width: 400, height: 300 }, // Small devices (portrait tablets)
-    { minWidth: 0, maxWidth: 2000, width: 200, height: 100 }, // Medium devices (landscape tablets)
+    { minWidth: 0, maxWidth: 2000, width: 150, height: 75 }, // Medium devices (landscape tablets)
     { minWidth: 2000, maxWidth: 3500, width: 280, height: 140 }, // Large devices (desktops)
     { minWidth: 3500, maxWidth: Infinity, width: 300, height: 150 }, // Extra large devices (large desktops)
   ];
@@ -27,7 +27,7 @@ export default function Footer() {
       <div className="container">
         <div className="row py-4">
           {/* Left Section - Logo and Social Icons */}
-          <div className="col-md-7 col-lg-4 px-4 mb-3 row">
+          <div className="col-12 col-md-4 px-4 px-md-2 px-lg-4 mb-3 row">
             <div className={`${style.footerLogo} col-8 mb-3 d-flex `}>
               <Image
                 src={logoW}
@@ -36,13 +36,15 @@ export default function Footer() {
                 height={height}
               />
             </div>
-            <p className="col-12  col-lg-9 d-flex mb-3 text-secondary">
+            <p
+              className={`col-12  col-lg-9 d-flex mb-3 text-secondary ${style.footerText}`}
+            >
               Continually optimize backward manufactured products whereas
               communities negotiate life compelling alignments
             </p>
             <div className="col-12  d-flex flex-wrap">
               <h3 className="w-100 mb-3">Follow us on:</h3>
-              <div className="d-flex w-100 gap-4">
+              <div className="d-flex w-100 gap-4 gap-md-3">
                 <i className={`${style.socicon} fa-brands fa-linkedin`}></i>
                 <i className={`${style.socicon} fa-brands fa-spotify`}></i>
                 <i className={`${style.socicon} fa-brands fa-youtube`}></i>
@@ -54,7 +56,7 @@ export default function Footer() {
           </div>
 
           {/* Middle Section - Quick Links */}
-          <div className="col-md-5 col-lg-4 px-4 mb-3 ">
+          <div className="col-12 col-md-4 px-4 px-md-2 px-lg-4 mb-3 ">
             <h5>Quick Links</h5>
             <ul className={`list-unstyled ${style.links}`}>
               <li className="mb-2">
@@ -86,7 +88,7 @@ export default function Footer() {
           </div>
 
           {/* Right Section - Contact Info */}
-          <div className="col-md-6 col-lg-4 px-4">
+          <div className="col-12 col-md-4 px-4 px-md-2 px-lg-4">
             <h5>Contact Us</h5>
             <ul className={`list-unstyled ${style.info} `}>
               <li className="mb-2">
