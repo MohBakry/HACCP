@@ -23,7 +23,7 @@ export default function About() {
             <div className="container p-4 ">
               <div className="row p-4 g-0 shadow-lg">
                 <div className='col-md-6 p-3'>
-                  <div className={`${style.secbg} p-4`}>
+                  <div className={`${style.secbg}  p-4`}>
                     <h1 className={`${style.subtitle} pb-2`}>Our Vision </h1>
                     <p className='text-white'>
 
@@ -60,9 +60,9 @@ export default function About() {
           </div>
           <div className="staff container p-4">
             <div className={`${style.stafftxt} row g-0 p-4 shadow-lg`}>
-              <div className={`${style.staff}   p-5`}>
+              <div className={`${style.staff}    p-5`}>
                 <h1 className={`${style.abouttitle} p-2`}>Our staff are our greatest asset </h1>
-                <p className={`${style.main} ps-3`}>The specialist team at The HACCP Institute Nord in Cairo is led by our director Dr Ahmed
+                <p className={`${style.main} ps-3 `}>The specialist team at The HACCP Institute Nord in Cairo is led by our director Dr Ahmed
                   EL.Ghobashy . With experience both here in Germany, Egypt and around the world, Dr Ahmed
                   EL.Ghobashy has vast experience in FMCG, food production, horticulture, food technology, supply
                   chain management and foodservice. <br></br>

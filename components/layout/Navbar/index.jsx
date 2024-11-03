@@ -79,7 +79,7 @@ export default function Navbar() {
                   className={`${style.socicon} login mx-auto align-items-center d-flex`}
                 >
                   <i className="fa-solid fa-user text-white mx-2"></i>
-                  <span className="text-white pe-1">Login</span>
+                <Link className="text-decoration-none" href='/login'><span className="text-white pe-1 " >Login</span></Link>  
                 </div>
               </div>
             </div>
