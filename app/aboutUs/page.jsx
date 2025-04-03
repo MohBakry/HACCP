@@ -7,7 +7,7 @@ import Header from "@/components/shared/header";
 export default function About() {
   return (
     <>
-      <div className={`${style.about} mb-5`}>
+      <div className={`mb-5`}>
         <Header img={img} title="About HACCP" />
         <div className="aboutUs">
           <div className="vision  bg-white">
