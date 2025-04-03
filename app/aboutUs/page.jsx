@@ -147,7 +147,7 @@ export default function About() {
                 </div>
                 <p className={`${style.main} p-5 pb-0`}>
                   {" "}
-                  I'am passionate about delivering better quality and
+                  I&apos;am passionate about delivering better quality and
                   sustainable services to our clients and helping manufacturers
                   protect and build their competitive advantage. <br></br>
                   EL-Ghobashy’ journey began with a BSc and PhD in Food Safety
