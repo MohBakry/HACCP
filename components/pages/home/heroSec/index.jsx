@@ -7,9 +7,7 @@ import styles from "./styles.module.css";
 export default function HeroSec() {
   return (
     <>
-      <div
-        className={`${styles.heroSec} ${styles.heroImg} position-relative container-fluid `}
-      >
+      <div className={`${styles.heroImg} position-relative container-fluid `}>
         <div class="row ">
           <div
             className={`${styles.heroTxt} col-lg-5  d-flex align-items-center vh-100 container `}
