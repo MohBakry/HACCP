@@ -7,18 +7,8 @@ import Header from "@/components/shared/header";
 export default function About() {
   return (
     <>
-      <div className={`${style.about} ${style.aboutbg} mb-5`}>
+      <div className={`${style.about} mb-5`}>
         <Header img={img} title="About HACCP" />
-        {/* <div className="header position-relative">
-          <Image width={0}
-            height={0}
-            sizes="100vw"
-            style={{ width: "100%", height: "auto" }}
-            alt="About-Header" src={img} ></Image>
-          <div className={` position-absolute bottom-0 start-0 `}>
-            <h1 className={`${style.headertxt} p-4  mb-0`} >About HACCP</h1>
-          </div>
-        </div> */}
         <div className="aboutUs">
           <div className="vision  bg-white">
             <div className="container p-4 ">
@@ -144,41 +134,45 @@ export default function About() {
               </div>
             </div>
           </div>
-          <div className="ceo container p-5">
-            <div
-              className={`${style.ceo} px-5 py-4 shadow-lg bg-white opacity-75 position-relative`}
-            >
-              <div className="position-absolute top-0 start-0 translate-middle ">
-                <i className={`${style.quotes} fa-solid fa-quote-left`}></i>
-              </div>
-              <div className="position-absolute top-100 start-100 translate-middle">
-                <i className={`${style.quotes} fa-solid fa-quote-right`}></i>
-              </div>
-              <p className={`${style.main} pt-4`}>
-                {" "}
-                I'am passionate about delivering better quality and sustainable
-                services to our clients and helping manufacturers protect and
-                build their competitive advantage. <br></br>
-                EL-Ghobashy’ journey began with a BSc and PhD in Food Safety and
-                Microbiology. His initial career was spent with Faculty of
-                Natural Science /University of Hohenheim in Stuttgart, Germany.
-                <br></br>
-                He has gained significant experience in retail technical and
-                quality management by working for 20 years with
-                innovation-leading retailers. He recently served as Quality and
-                Food Safety Manager.<br></br>
-                He has certified in numerous and significant food safety topics
-                from international organizations like BRCGS Standard Lead
-                Auditor, FSSC Standard Lead Auditor, Highfield level 4, BRCGS
-                Professional Grade, Food Safety Diplomate from the American
-                University He has also certified from BRCGS in the upcoming
-                topics: HACCP, Food Safety Culture, Root Cause Analysis,
-                Vulnerability Assessment of Food Fraud, Internal Auditor,
-                Environmental Monitoring, Verification and Validation .{" "}
-              </p>
-              <div className="text-center">
-                <h3 className={style.main}>Dr. Ahmed EL-Ghobashy</h3>
-                <h5 className={style.sub}>CEO</h5>
+          <div className={` ${style.aboutbg}`}>
+            <div className={`ceo container p-5  ${style.aboutbg}`}>
+              <div
+                className={`${style.ceo} px-5 py-4 shadow-lg bg-white opacity-75 position-relative`}
+              >
+                <div className="position-absolute top-0 start-0 translate-middle ">
+                  <i className={`${style.quotes} fa-solid fa-quote-left`}></i>
+                </div>
+                <div className="position-absolute top-100 start-100 translate-middle">
+                  <i className={`${style.quotes} fa-solid fa-quote-right`}></i>
+                </div>
+                <p className={`${style.main} p-5 pb-0`}>
+                  {" "}
+                  I'am passionate about delivering better quality and
+                  sustainable services to our clients and helping manufacturers
+                  protect and build their competitive advantage. <br></br>
+                  EL-Ghobashy’ journey began with a BSc and PhD in Food Safety
+                  and Microbiology. His initial career was spent with Faculty of
+                  Natural Science /University of Hohenheim in Stuttgart,
+                  Germany.
+                  <br></br>
+                  He has gained significant experience in retail technical and
+                  quality management by working for 20 years with
+                  innovation-leading retailers. He recently served as Quality
+                  and Food Safety Manager.<br></br>
+                  He has certified in numerous and significant food safety
+                  topics from international organizations like BRCGS Standard
+                  Lead Auditor, FSSC Standard Lead Auditor, Highfield level 4,
+                  BRCGS Professional Grade, Food Safety Diplomate from the
+                  American University He has also certified from BRCGS in the
+                  upcoming topics: HACCP, Food Safety Culture, Root Cause
+                  Analysis, Vulnerability Assessment of Food Fraud, Internal
+                  Auditor, Environmental Monitoring, Verification and Validation
+                  .{" "}
+                </p>
+                <div className="text-center">
+                  <h3 className={style.main}>Dr. Ahmed EL-Ghobashy</h3>
+                  <h5 className={style.sub}>CEO</h5>
+                </div>
               </div>
             </div>
           </div>

@@ -1,0 +1,16 @@
+.layoutContainer {
+  padding-top: 100px;
+  min-height: calc(100vh - 350px);
+}
+@media (max-width: 1600px) {
+  .layoutContainer {
+    padding-top: 116px;
+    min-height: calc(100vh - 348px);
+  }
+}
+@media (max-width: 700px) {
+  .layoutContainer {
+    padding-top: 131px;
+    min-height: calc(100vh - 650px);
+  }
+}

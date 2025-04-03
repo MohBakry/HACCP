@@ -7,6 +7,9 @@
   color: white;
   background-color: #5ab0c699;
 }
+.img {
+  object-fit: cover;
+}
 
 @media (max-width: 1000px) {
   .headerText {
