@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import logoW from "../src/Assets/images/logo-white.PNG";
+import logoW from "../src/Assets/images/logo-white.png";
 
 import HeroSec from "../components/pages/home/heroSec";
 import AboutSec from "../components/pages/home/aboutSec";
