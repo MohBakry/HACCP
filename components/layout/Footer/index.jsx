@@ -3,8 +3,8 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import logo from "../../../src/Assets/images/logo.PNG";
-import logoW from "../../../src/Assets/images/logo-w.PNG";
+import logo from "../../../src/Assets/images/logo-color.PNG";
+import logoW from "../../../src/Assets/images/logo-white.PNG";
 import Image from "next/image";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import style from "./styles.module.css";

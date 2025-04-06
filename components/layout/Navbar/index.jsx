@@ -3,8 +3,8 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import logo from "../../../src/Assets/images/logo.PNG";
-import logoW from "../../../src/Assets/images/logo-w.PNG";
+import logo from "../../../src/Assets/images/logo-color.PNG";
+import logoW from "../../../src/Assets/images/logo-white.PNG";
 import Image from "next/image";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import style from "./styles.module.css";
@@ -79,7 +79,9 @@ export default function Navbar() {
                   className={`${style.socicon} login mx-auto align-items-center d-flex`}
                 >
                   <i className="fa-solid fa-user text-white mx-2"></i>
-                <Link className="text-decoration-none" href='/login'><span className="text-white pe-1 " >Login</span></Link>  
+                  <Link className="text-decoration-none" href="/login">
+                    <span className="text-white pe-1 ">Login</span>
+                  </Link>
                 </div>
               </div>
             </div>
