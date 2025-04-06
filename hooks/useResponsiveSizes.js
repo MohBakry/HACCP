@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 
 const useResponsiveSizes = (breakpoints) => {
   const [size, setSize] = useState({
-    width: window?.innerWidth,
-    height: window?.innerHeight,
+    width: window?.innerWidth || 0,
+    height: window?.innerHeigh || 0,
   });
 
   const handleResize = () => {
     setSize({
-      width: window?.innerWidth,
-      height: window?.innerHeight,
+      width: window?.innerWidth || 0,
+      height: window?.innerHeight || 0,
     });
   };
 
