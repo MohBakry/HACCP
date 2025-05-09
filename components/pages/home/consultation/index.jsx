@@ -24,25 +24,37 @@ export default function Consultation() {
                 <i
                   className={`${style.consi} m-2 fa-solid fa-circle-arrow-right`}
                 ></i>
-                Agents and Brokers training
+                BRC implementation and documentation   for Food Safety
               </h3>
               <h3 className={`${style.consh3}`}>
                 <i
                   className={`${style.consi} m-2 fa-solid fa-circle-arrow-right`}
                 ></i>
-                Network, learn and grow
+                FSSC implementation and documentation
               </h3>
               <h3 className={`${style.consh3}`}>
                 <i
                   className={`${style.consi} m-2 fa-solid fa-circle-arrow-right`}
                 ></i>
-                Tools to achieve certification
+                NAFSA Requirements implementation and documentation
               </h3>
               <h3 className={`${style.consh3}`}>
                 <i
                   className={`${style.consi} m-2 fa-solid fa-circle-arrow-right`}
                 ></i>
-                Agents and Brokers training
+                ISO 22000 implementation and documentation
+              </h3>
+              <h3 className={`${style.consh3}`}>
+                <i
+                  className={`${style.consi} m-2 fa-solid fa-circle-arrow-right`}
+                ></i>
+                Food safety for Catering implementation and documentation
+              </h3>
+              <h3 className={`${style.consh3}`}>
+                <i
+                  className={`${style.consi} m-2 fa-solid fa-circle-arrow-right`}
+                ></i>
+                HACCP (Codex) implementation and documentation
               </h3>
               <div>
                 <div className="ms-auto">
