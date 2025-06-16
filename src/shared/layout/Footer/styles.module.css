@@ -1,0 +1,63 @@
+/* styles/globals.css */
+.footer {
+  background-color: #012f5a; /* Dark background color */
+  color: white;
+}
+
+.footerLogo {
+  margin-bottom: 1rem;
+}
+
+.footer .links li a {
+  /* margin-bottom: 30px; */
+  color: white;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.footer .info li {
+  font-size: 1rem;
+}
+
+.footer .socialIcons a:hover {
+  color: #00aaff; /* Change color on hover */
+}
+.footer .infoIcon {
+  color: #5ab0c6;
+  padding-right: 15px;
+  font-size: 24px;
+}
+.footer h5 {
+  margin-bottom: 1rem;
+  color: #5ab0c6;
+  text-decoration: underline;
+  font-size: 32px;
+}
+
+.footerBottom {
+  background-color: #5ab0c6; /* Lighter blue color */
+}
+.socicon {
+  color: white;
+  font-size: 22px;
+}
+@media (max-width: 1400px) {
+  .footerText {
+    font-size: 12px;
+  }
+  .socicon {
+    /* color: white; */
+    font-size: 16px;
+  }
+  .footer h5 {
+    font-size: 20px;
+    padding-top: 30px;
+  }
+  .footer .list-unstyled li {
+    font-size: 14px;
+  }
+  .footer .info li {
+    font-size: 14px;
+  }
+}

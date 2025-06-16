@@ -1,0 +1,27 @@
+.infoSection {
+      max-width: 600px;
+      margin: 40px auto 20px auto;
+      padding: 0 20px;
+      background-color: #eaf6f9;
+      border-left: 4px solid #5AB1C6;
+      padding-left: 20px;
+}
+
+.infoSection h2 {
+      margin-bottom: 10px;
+      color: #012F5A;
+}
+
+.infoSection p {
+      margin: 5px 0;
+}
+
+.mapSection {
+      margin: 50px auto;
+      max-width: 1000px;
+      padding: 0 20px;
+}
+
+.placeholderWhite::placeholder {
+      color: white!important;
+}

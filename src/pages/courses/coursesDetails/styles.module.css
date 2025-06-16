@@ -1,0 +1,49 @@
+.courseTitle {
+      font-size: 2rem;
+      color: #003366;
+    }
+    
+    .videoContainer {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .thumbnailImage {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    
+    .playButton {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3rem;
+      color: white;
+      opacity: 0.8;
+    }
+    
+    .playButton:hover {
+      opacity: 1;
+      cursor: pointer;
+    }
+    
+    .courseVideo {
+      border-radius: 8px;
+      height: 500px;
+    }
+    
+    /* h5,
+    h6 {
+      color: #003366;
+    } */
+    
+    .card {
+      border: none;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    

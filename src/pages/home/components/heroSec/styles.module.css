@@ -1,0 +1,39 @@
+.heroImg {
+  background-image: url("../../../../assets/images/hero.jpg");
+  background-size: cover;
+}
+.heroTxt {
+  background-color: #5ab0c699;
+}
+.titleh3 {
+  font-size: 30px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+}
+.titleh1 {
+  font-size: 52px;
+  font-weight: 700;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #012f5a;
+}
+
+.btnSrch {
+  background-color: #012f5a;
+  border: 0;
+}
+
+.boxes {
+  background-color: #012f5a;
+  display: flex;
+}
+.boxh3 {
+  font-size: 24px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #5ab0c6;
+}
+
+@media (max-width: 1400px) {
+  .boxes {
+    display: none;
+  }
+}

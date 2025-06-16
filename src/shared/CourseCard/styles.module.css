@@ -1,0 +1,207 @@
+.card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.card.listView {
+  flex-direction: row;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.card.listView .imageContainer {
+  /* flex: 0 0 200px; */
+  margin-right: 0.5rem;
+}
+
+.card.listView .cardBody {
+  flex: 1;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.imageContainer {
+  position: relative;
+}
+
+.cardImage {
+  object-fit: cover;
+  border-bottom: 1px solid #e0e0e0;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.card.listView .cardImage {
+  border-bottom: none;
+  border-radius: 8px;
+}
+
+.durationBadge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #f44336;
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cardBody {
+  padding: 1rem;
+}
+
+.cardTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #003366;
+  margin: 1rem 0 0.5rem;
+  /* max-height: 2rem; */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-decoration: none !important;
+}
+
+.card.listView .cardTitle {
+  white-space: normal;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.ratingSection {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.divider {
+  border: none;
+  border-bottom: 1px solid #5ab0c6;
+  height: 1rem;
+}
+
+.stars {
+  color: #012f5a;
+}
+
+.rating {
+  font-size: 0.9rem;
+  color: #666;
+  text-decoration: none !important;
+}
+
+.price {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f44336;
+  text-decoration: none !important;
+}
+@media (min-width: 700px) {
+  .price {
+    width: auto !important;
+  }
+}
+
+/* .card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s;
+  background-color: #fff;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.imageContainer {
+  position: relative;
+}
+
+.cardImage {
+  object-fit: cover;
+  border-bottom: 1px solid #e0e0e0;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.durationBadge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #f44336;
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cardBody {
+  padding: 1rem;
+}
+
+.cardTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #003366;
+  margin: 1rem 0 0.5rem;
+  max-height: 2rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.ratingSection {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.divider {
+  border: none;
+  border-bottom: 1px solid #5ab0c6;
+  height: 1rem;
+}
+
+.stars {
+  color: #012f5a;
+}
+
+.rating {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.price {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f44336;
+} */

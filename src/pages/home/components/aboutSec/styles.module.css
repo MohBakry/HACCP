@@ -1,0 +1,48 @@
+.abtsec {
+  margin-top: 100px;
+}
+.titleh1 {
+  font-size: 52px;
+  font-weight: 700;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #012f5a;
+}
+.aboutImg {
+  background-image: url("../../../../assets/images/About.png");
+  background-size: cover;
+}
+.abouth3 {
+  font-size: 40px;
+  font-weight: 600;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #5ab0c6;
+}
+.abouth5 {
+  font-size: 16px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #012f5a;
+  line-height: 1.5;
+}
+.aboutbtn {
+  width: 150px;
+  background-color: #5ab0c6;
+  color: white;
+  border: #5ab0c6;
+}
+.aboutbtn:hover {
+  background-color: #012f5a;
+}
+
+@media (max-width: 1400px) {
+  .abtsec {
+    margin-top: 0;
+  }
+  .titleh1 {
+    font-size: 52px;
+    font-weight: 700;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #012f5a;
+  }
+}
+@media (max-width: 1200px) {
+}
