@@ -1,0 +1,15 @@
+.bg{
+      background-color: #83c7d0;
+      border-radius: 0  15px;
+}
+.bgTitle{
+      background-color: #0d3b66;
+      color:white;
+}
+.navItem{
+      color:white !important;
+}
+.navItem:hover{
+      background-color: #83c7d0 !important;
+      border-radius: 5px;
+}

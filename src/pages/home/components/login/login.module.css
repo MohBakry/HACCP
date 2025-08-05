@@ -1,0 +1,24 @@
+.login{
+      background-image: url('../../src/Assets/images/signin.jpg');
+      background-size: cover;
+}
+
+.signin{
+      background-color: #5ab0c635;
+      border: solid  2px white;
+}
+.btn{
+      background-color: #5ab0c6;
+      color:white;
+}
+.btn:hover{
+      background-color: white;
+      color: #5ab0c6;
+}
+.link{
+      color:#5ab0c6;
+
+}
+.link:hover{
+      color:white;
+}

@@ -21,6 +21,8 @@ export default function Navbar() {
     { path: "/podcast", link: "Podcast" },
     { path: "/news", link: "News" },
     { path: "/contactUs", link: "Contact Us" },
+    
+    
   ];
   return (
     <>

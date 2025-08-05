@@ -1,0 +1,29 @@
+.bg{
+      background-color: #83c7d0;
+      border-radius: 0  15px 0 0;
+}
+.active{
+      font-weight: 600;
+}
+.bgTitle{
+      background-color: #0d3b66;
+      color:white;
+      border-radius: 5px;
+      
+}
+.btnSide{
+      background-color: #83c7d0;
+      width: 100%;
+      color: white !important;
+      margin:auto;
+      text-decoration: none;
+}
+.btnSide:hover{
+      background-color: white;
+      color: #0d3b66 !important;
+      width: 100%;
+}
+h6{
+      font-size: 16px;
+      font-weight: 400;
+}

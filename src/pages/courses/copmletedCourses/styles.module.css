@@ -1,0 +1,53 @@
+.container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #83c7d080; /* Background color */
+      padding: 1rem;
+      /* border-radius: 0.5rem; */
+    }
+    
+    .courseCount {
+      font-size: 1rem;
+      color: #0d3b66;
+    }
+    
+    .viewToggle {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .viewButton {
+      background: none;
+      border: none;
+      color: #0d3b66;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      cursor: pointer;
+    }
+    
+    .viewButton i {
+      font-size: 1.2rem;
+    }
+    
+    .viewButton:hover,
+    .active {
+      color: #83c7d0;
+      font-weight: bold;
+    }
+    
+    .filterDropdown select {
+      border: none;
+      border-radius: 4px;
+      padding: 0.25rem 0.5rem;
+      color: #0d3b66;
+      background-color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .w80 {
+      width: 85%;
+    }
+    

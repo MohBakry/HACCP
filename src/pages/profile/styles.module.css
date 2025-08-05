@@ -1,0 +1,45 @@
+.bg{
+      background-color: #83c7d0;
+      border-radius: 0  15px 0 0;
+}
+.bgTitle{
+      background-color: #0d3b66;
+      color:white;
+      border-radius: 5px;
+      
+}
+.navItem{
+      color:white !important;
+}
+.navItem:hover{
+      background-color: #83c7d0 !important;
+      border-radius: 5px;
+}
+h6{
+      font-size: 16px;
+      font-weight: 400;
+}
+
+.btnSide{
+      background-color: #83c7d0;
+      width: 100%;
+      color: white !important;
+      margin:auto
+}
+.btnSide:hover{
+      background-color: white;
+      color: #0d3b66 !important;
+      width: 100%;
+}
+.btnCnt:hover{
+      background-color: #0d3b66;
+      color: white;
+}
+
+.btnCnt:active{
+      background-color: #83c7d0 !important;
+}
+.nav-link{
+      color: black !important;
+      background-color: #0d3b66 !important;
+}
