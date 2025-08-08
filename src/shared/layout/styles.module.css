@@ -1,25 +1,28 @@
 .font-geist-sans {
-      font-family: var(--font-geist-sans);
-    }
-    
-    .font-geist-mono {
-      font-family: var(--font-geist-mono);
-    }
-    .layoutContainer {
-      padding-top: 100px;
-      min-height: calc(100vh - 350px);
-    }
-    
-    @media (max-width: 1600px) {
-      .layoutContainer {
-        padding-top: 100px;
-        min-height: calc(100vh - 348px);
-      }
-    }
-    
-    @media (max-width: 700px) {
-      .layoutContainer {
-        padding-top: 131px;
-        min-height: calc(100vh - 650px);
-      }
-    }
+  font-family: var(--font-geist-sans);
+}
+
+.font-geist-mono {
+  font-family: var(--font-geist-mono);
+}
+.layoutContainer {
+  padding-top: 100px;
+  min-height: calc(100vh - 350px);
+}
+.dashboardLayoutContainer {
+  display: flex;
+}
+
+@media (max-width: 1600px) {
+  .layoutContainer {
+    padding-top: 100px;
+    min-height: calc(100vh - 348px);
+  }
+}
+
+@media (max-width: 700px) {
+  .layoutContainer {
+    padding-top: 131px;
+    min-height: calc(100vh - 650px);
+  }
+}

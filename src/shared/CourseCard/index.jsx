@@ -15,6 +15,7 @@ const CourseCard = ({
   adminMode = false,
   onEdit,
   onDelete,
+  redirectTo,
 }) => {
   const gridSizes = [
     { minWidth: 0, maxWidth: 450, width: 400, height: 280 },
@@ -92,9 +93,9 @@ const CourseCard = ({
           </div>
 
           <div
-            className={`${
-              viewMode === "list" ? "w-100 w-md-auto py-2" : ""
-            } ${styles.price}`}
+            className={`${viewMode === "list" ? "w-100 w-md-auto py-2" : ""} ${
+              styles.price
+            }`}
           >
             {discount > 0 ? (
               <>
@@ -115,13 +116,13 @@ const CourseCard = ({
               className="btn btn-sm btn-outline-warning me-2"
               onClick={() => onEdit?.(id)}
             >
-               Edit
+              Edit
             </button>
             <button
               className="btn btn-sm btn-outline-danger"
               onClick={() => onDelete?.(id)}
             >
-               Remove
+              Remove
             </button>
           </div>
         )}
@@ -132,11 +133,13 @@ const CourseCard = ({
   return adminMode ? (
     <>{cardContent}</>
   ) : (
-    <Link to={`/courses/${id}`} className="text-decoration-none">
+    <Link
+      to={redirectTo ? redirectTo : `/courses/${id}`}
+      className="text-decoration-none"
+    >
       {cardContent}
     </Link>
   );
 };
 
 export default CourseCard;
-

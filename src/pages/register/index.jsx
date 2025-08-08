@@ -1,139 +1,156 @@
-import React, { useState } from 'react'
-import style from './styles.module.css'
-import { useFormik } from 'formik'
-import * as Yup from 'yup'
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
-import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { setUserToken } from '../../Redux/UserSlice'
+import React from "react";
+import style from "./styles.module.css";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../../Redux/auth/user.service";
 
 export default function Register() {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { error, loading } = useSelector((state) => state.user);
 
   const users = {
-    name: '',
-    email: '',
-    password: '',
-    rePassword: '',
-    phone: '',
-  }
+    name: "",
+    email: "",
+    password: "",
+    rePassword: "",
+    phone: "",
+  };
 
   const validationSchema = Yup.object({
-    name: Yup.string().required('name required').min(3, 'min 3').max(8, 'max 8'),
-    email: Yup.string().required('email required').email('enter valid email'),
-    phone: Yup.string().required('phone required').matches(/^01[0125][0-9]{8}$/),
-    password: Yup.string().required('password required').matches(/^[A-Z][a-z0-9]{5,10}$/),
-    rePassword: Yup.string().required('password matching required').oneOf([Yup.ref('password')]),
-  })
+    name: Yup.string()
+      .required("name required")
+      .min(3, "min 3")
+      .max(20, "max 20"),
+    email: Yup.string().required("email required").email("enter valid email"),
+    phone: Yup.string()
+      .required("phone required")
+      .matches(/^01[0125][0-9]{8}$/),
+    password: Yup.string()
+      .required("password required")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/,
+        "Password must contain at least 1 uppercase, 1 lowercase, 1 number, 1 special character, and be at least 8 characters long"
+      ),
+    rePassword: Yup.string()
+      .required("password matching required")
+      .oneOf([Yup.ref("password")]),
+  });
 
   async function submitForm(values) {
-    setLoading(true)
-    try {
-      const { data } = await axios.post(
-        'https://ecommerce.routemisr.com/api/v1/auth/signup',
-        values
-      )
-
-      if (data.message === 'success') {
-        // Optional: auto-login after register
-        const loginRes = await axios.post(
-          'https://ecommerce.routemisr.com/api/v1/auth/signin',
-          { email: values.email, password: values.password }
-        )
-
-        const token = loginRes.data.token
-        localStorage.setItem('token', token)
-        dispatch(setUserToken(token))
-        navigate('/login')
-      }
-    } catch (err) {
-      setError(err.response?.data?.message || 'Registration failed')
-    } finally {
-      setLoading(false)
-    }
+    dispatch(register(values))
+      .unwrap()
+      .then(() => {
+        navigate("/my-courses");
+      });
   }
 
   const formik = useFormik({
     initialValues: users,
     onSubmit: submitForm,
     validationSchema,
-  })
+  });
   return (
     <>
-    <div className={`${style.login} login d-flex align-items-center justify-content-center  vh-100 `}>
-      <div className={`${style.signin} col-lg-4 rounded-2 p-5`}>
-        <h2 className="text-white text-center pb-3">Register Now</h2>
-        <form onSubmit={formik.handleSubmit}>
+      <div
+        className={`${style.login} login d-flex align-items-center justify-content-center  vh-100 `}
+      >
+        <div className={`${style.signin} col-lg-4 rounded-2 p-5`}>
+          <h2 className="text-white text-center pb-3">Register Now</h2>
+          <form onSubmit={formik.handleSubmit}>
+            {error && <div className="alert alert-info">{error}</div>}
 
-        {error && <div className="alert alert-info">{error}</div>}
-          
-          <input onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-          type="text"
-          className="form-control my-3"
-          name="name"
-          id="userName" placeholder="Full Name" />
-           {formik.errors.name && formik.touched.name && (
-          <div className="alert text-white">{formik.errors.name}</div>
-        )}
-          <input  onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-          type="email"
-          className="form-control my-3"
-          name="email"
-          id="email" placeholder=" Email" />
+            <input
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              type="text"
+              className="form-control my-3"
+              name="name"
+              id="userName"
+              placeholder="Full Name"
+            />
+            {formik.errors.name && formik.touched.name && (
+              <div className="alert text-white">{formik.errors.name}</div>
+            )}
+            <input
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              type="email"
+              className="form-control my-3"
+              name="email"
+              id="email"
+              placeholder=" Email"
+            />
 
-{formik.errors.name && formik.touched.email && (
-          <div className="alert text-white">{formik.errors.email}</div>
-        )}
+            {formik.errors.name && formik.touched.email && (
+              <div className="alert text-white">{formik.errors.email}</div>
+            )}
 
-          <input  onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-          type="tel"
-          className="form-control my-3"
-          name="phone"
-          id="phone" placeholder="Phone Number" />
+            <input
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              type="tel"
+              className="form-control my-3"
+              name="phone"
+              id="phone"
+              placeholder="Phone Number"
+            />
 
-          {formik.errors.name && formik.touched.phone && (
-          <div className="alert text-white">{formik.errors.phone}</div>
-        )}
-         
-          <input  onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-          type="password"
-          className="form-control my-3"
-          name="password"
-          id="password" placeholder="Password" />
+            {formik.errors.name && formik.touched.phone && (
+              <div className="alert text-white">{formik.errors.phone}</div>
+            )}
 
-           {formik.errors.name && formik.touched.password && (
-          <div className="alert text-white">{formik.errors.password}</div>
-        )}
+            <input
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              type="password"
+              className="form-control my-3"
+              name="password"
+              id="password"
+              placeholder="Password"
+            />
 
-          <input  onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-          type="password"
-          className="form-control my-3"
-          name="rePassword"
-          id="rePassword" placeholder="re-Password" />
+            {formik.errors.name && formik.touched.password && (
+              <div className="alert text-white">{formik.errors.password}</div>
+            )}
 
-           {formik.errors.name && formik.touched.rePassword && (
-          <div className="alert text-white">{formik.errors.rePassword}</div>
-        )}
-         
-          <button type="submit" disabled={!(formik.isValid && formik.dirty)} className={`${style.btn} btn w-100  my-3`}>Register </button>
-        </form>
-        <div className="d-flex ">
-        <h6>Already have an account?</h6>
-           <Link className={`${style.link} ms-auto text-decoration-none `} href='/login'>Sign In</Link>
+            <input
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              type="password"
+              className="form-control my-3"
+              name="rePassword"
+              id="rePassword"
+              placeholder="re-Password"
+            />
+
+            {formik.errors.name && formik.touched.rePassword && (
+              <div className="alert text-white">{formik.errors.rePassword}</div>
+            )}
+
+            <button
+              type="submit"
+              disabled={!(formik.isValid && formik.dirty) || loading}
+              className={`${style.btn} btn w-100  my-3`}
+            >
+              Register{" "}
+            </button>
+          </form>
+          <div className="d-flex ">
+            <h6>Already have an account?</h6>
+            <Link
+              className={`${style.link} ms-auto text-decoration-none `}
+              href="/login"
+            >
+              Sign In
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
-  </>
+    </>
     // <>
     //   <div className={`${style.login} login d-flex align-items-center justify-content-center  vh-100 `}>
     //     <div className={`${style.signin} col-lg-4 rounded-1 p-5`}>
@@ -227,5 +244,5 @@ export default function Register() {
     //     </div>
     //   </div>
     // </>
-  )
+  );
 }

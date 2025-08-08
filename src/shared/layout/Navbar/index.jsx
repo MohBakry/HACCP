@@ -7,11 +7,13 @@ import logoW from "../../../assets/images/logo-white.png";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import style from "./styles.module.css";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Navbar() {
   const location = useLocation();
+  const { user } = useSelector((state) => state.user);
   const pathname = location.pathname;
-  let links = [
+  const links = [
     { path: "/", link: "Home" },
     { path: "/aboutUs", link: "About Us" },
     { path: "/courses", link: "Courses" },
@@ -21,8 +23,6 @@ export default function Navbar() {
     { path: "/podcast", link: "Podcast" },
     { path: "/news", link: "News" },
     { path: "/contactUs", link: "Contact Us" },
-    
-    
   ];
   return (
     <>
@@ -33,7 +33,7 @@ export default function Navbar() {
               <img
                 className={`${style.logos}   mx-3`}
                 src={logo}
-                style={{width:"200px",height:'100px'}}
+                style={{ width: "200px", height: "100px" }}
                 alt="HACCP"
               />
             </Link>
@@ -69,7 +69,7 @@ export default function Navbar() {
                 <div
                   className={`${style.socialround} social w-75 bg-white align-items-center py-2 d-flex justify-content-around`}
                 >
-                  <i className={`${style.socicon} fa-brands fa-linkedin`}></i>
+                  <i className={`${style.socicon} fa-brands fa-linkedin`} />
                   <i className={`${style.socicon} fa-brands fa-spotify`}></i>
                   <i className={`${style.socicon} fa-brands fa-youtube`}></i>
                   <i className={`${style.socicon} fa-brands fa-twitter`}></i>
@@ -79,10 +79,14 @@ export default function Navbar() {
                 <div
                   className={`${style.socicon} login mx-auto align-items-center d-flex`}
                 >
-                  <i className="fa-solid fa-user text-white mx-2"></i>
-                  <Link className="text-decoration-none" to="/login">
-                    <span className="text-white pe-1 ">Login</span>
-                  </Link>
+                  {user ? (
+                    <span className="text-white pe-1 ">{user.name}</span>
+                  ) : (
+                    <Link className="text-decoration-none" to="/login">
+                      <i className="fa-solid fa-user text-white mx-2"></i>
+                      <span className="text-white pe-1 ">Login</span>
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
@@ -94,8 +98,8 @@ export default function Navbar() {
               <ul
                 className={`${style.links} navbar-nav w-100  justify-content-around ms-auto mt-0 mt-lg-0`}
               >
-                {links.map((link,i) => (
-                  <li className="nav-item " key={link+i}>
+                {links.map((link, i) => (
+                  <li className="nav-item " key={link + i}>
                     <Link
                       className={
                         pathname === link.path

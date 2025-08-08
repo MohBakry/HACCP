@@ -4,7 +4,7 @@ import CourseManager from "./courseManager";
 import CrntCourses from "./crntCourses";
 import CmpltCourses from "./cmpltCourses";
 import Instructors from "./instructors";
-import styles from './styles.module.css'
+import styles from "./styles.module.css";
 
 export default function AdminDashboard() {
   const [selectedMenu, setSelectedMenu] = useState("manageCourses");
@@ -12,7 +12,7 @@ export default function AdminDashboard() {
   return (
     <div className="d-flex">
       {/* Sidebar */}
-      <div
+      {/* <div
         className={`${styles.bg} col-md-2 border-end text-white p-2 border-bottom`}
         
       >
@@ -62,7 +62,7 @@ export default function AdminDashboard() {
           </li>
         </ul>
        </div>
-      </div>
+      </div> */}
 
       {/* Main Content */}
       <div className="flex-grow-1 p-4">

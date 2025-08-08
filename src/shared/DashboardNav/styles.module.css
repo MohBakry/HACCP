@@ -1,0 +1,25 @@
+.sidebar {
+  background-color: #1f1f2e;
+  color: white;
+  width: 240px;
+}
+
+.logo {
+  max-width: 100px;
+  height: auto;
+}
+
+.link {
+  color: #83c7d0 !important;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.link:hover {
+  background-color: #34344a !important;
+  color: #fff;
+}
+
+.active {
+  background-color: #83c7d0 !important;
+  color: #fff !important;
+}

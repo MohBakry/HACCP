@@ -1,66 +1,58 @@
-import React, { useState } from 'react'
-import style from "./styles.module.css"
-import { useFormik } from 'formik'
-import * as Yup from 'yup'
-import axios from 'axios'
-import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { setUserToken } from '../../redux/userSlice'
+import React from "react";
+import style from "./styles.module.css";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../Redux/auth/user.service";
+import { setRole } from "../../Redux/auth/user.store";
 
 export default function Login() {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.user);
+  const location = useLocation();
+  const currentPath = location.pathname;
 
   const validationSchema = Yup.object({
-    email: Yup.string().required('Email is required').email('Enter a valid email'),
+    email: Yup.string()
+      .required("Email is required")
+      .email("Enter a valid email"),
     password: Yup.string()
-      .required('Password is required')
-      .matches(/^[A-Z][a-z0-9]{5,10}$/, 'Password must start with uppercase and be 6-11 characters'),
-  })
+      .required("Password is required")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/,
+        "Invalid password"
+      ),
+  });
 
   async function submitForm(values) {
-    setLoading(true)
-    try {
-      const { data } = await axios.post(
-        'https://ecommerce.routemisr.com/api/v1/auth/signin',
-        values
-      )
-
-      if (data.message === 'success') {
-        localStorage.setItem('token', data.token)
-
-        // Optional: mock user info, or get from data if available
-        const mockUser = {
-          id: '123',
-          name: 'Student Name',
-          email: values.email,
+    dispatch(login(values))
+      .unwrap()
+      .then(() => {
+        if (currentPath.includes("dashboard")) {
+          dispatch(setRole("admin"));
+          navigate("/dashboard/manage-courses");
+        } else {
+          dispatch(setRole("student"));
+          navigate("/my-courses");
         }
-        localStorage.setItem('user', JSON.stringify(mockUser))
-
-        dispatch(setUserToken(data.token))
-        navigate('/profile')
-      }
-    } catch (err) {
-      setError(err.response?.data?.message || 'Login failed')
-    } finally {
-      setLoading(false)
-    }
+      });
   }
 
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
     onSubmit: submitForm,
     validationSchema,
-  })
+  });
 
   return (
-    <div className={`${style.login} login d-flex align-items-center justify-content-center vh-100`}>
+    <div
+      className={`${style.login} login d-flex align-items-center justify-content-center vh-100`}
+    >
       <div className={`${style.signin} col-lg-4 rounded-2 p-5`}>
         <h2 className="text-white text-center pb-3">Sign in</h2>
 
@@ -95,7 +87,10 @@ export default function Login() {
 
           <div className="d-flex">
             <input type="checkbox" className="m-2" /> Remember me
-            <Link className={`${style.link} ms-auto text-decoration-none`} to="/">
+            <Link
+              className={`${style.link} ms-auto text-decoration-none`}
+              to="/"
+            >
               Forgot Password?
             </Link>
           </div>
@@ -105,17 +100,20 @@ export default function Login() {
             disabled={!(formik.isValid && formik.dirty)}
             className={`${style.btns} btn w-100 my-3`}
           >
-            {loading ? 'Signing in...' : 'Sign in'}
+            {loading ? "Signing in..." : "Sign in"}
           </button>
         </form>
 
         <div className="d-flex">
           <h6>Don&apos;t have an account yet?</h6>
-          <Link className={`${style.link} ms-auto text-decoration-none`} to="/register">
+          <Link
+            className={`${style.link} ms-auto text-decoration-none`}
+            to="/register"
+          >
             Sign Up Now
           </Link>
         </div>
       </div>
     </div>
-  )
+  );
 }
