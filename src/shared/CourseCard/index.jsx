@@ -12,7 +12,7 @@ const CourseCard = ({
   price,
   discount = 0,
   viewMode = "grid",
-  adminMode = false,
+  adminMode = true,
   onEdit,
   onDelete,
   redirectTo,
@@ -130,13 +130,12 @@ const CourseCard = ({
     </div>
   );
 
-  return adminMode ? (
-    <>{cardContent}</>
-  ) : (
+  return (
     <Link
       to={redirectTo ? redirectTo : `/courses/${id}`}
       className="text-decoration-none"
     >
+      {console.log(redirectTo, "redirectTo")}
       {cardContent}
     </Link>
   );

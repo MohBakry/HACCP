@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import style from "./styles.module.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -13,6 +13,13 @@ export default function Login() {
   const { loading, error } = useSelector((state) => state.user);
   const location = useLocation();
   const currentPath = location.pathname;
+  const [isDashboard, setIsDashboard] = React.useState(false);
+
+  useEffect(() => {
+    if (currentPath.includes("dashboard")) {
+      setIsDashboard(true);
+    }
+  }, [currentPath]);
 
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -103,16 +110,17 @@ export default function Login() {
             {loading ? "Signing in..." : "Sign in"}
           </button>
         </form>
-
-        <div className="d-flex">
-          <h6>Don&apos;t have an account yet?</h6>
-          <Link
-            className={`${style.link} ms-auto text-decoration-none`}
-            to="/register"
-          >
-            Sign Up Now
-          </Link>
-        </div>
+        {!isDashboard && (
+          <div className="d-flex">
+            <h6>Don&apos;t have an account yet?</h6>
+            <Link
+              className={`${style.link} ms-auto text-decoration-none`}
+              to="/register"
+            >
+              Sign Up Now
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
