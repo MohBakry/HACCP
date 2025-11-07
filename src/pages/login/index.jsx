@@ -93,7 +93,8 @@ export default function Login() {
           )}
 
           <div className="d-flex">
-            <input type="checkbox" className="m-2" /> Remember me
+            <input type="checkbox" className={`${style.checkBox} m-2`} />{" "}
+            <span className={`${style.textColor} m-2`}>Remember me</span>
             <Link
               className={`${style.link} ms-auto text-decoration-none`}
               to="/"
@@ -112,7 +113,9 @@ export default function Login() {
         </form>
         {!isDashboard && (
           <div className="d-flex">
-            <h6>Don&apos;t have an account yet?</h6>
+            <h6 className={`${style.textColor}`}>
+              Don&apos;t have an account yet?
+            </h6>
             <Link
               className={`${style.link} ms-auto text-decoration-none`}
               to="/register"
