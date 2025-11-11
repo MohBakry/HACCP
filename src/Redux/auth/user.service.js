@@ -26,7 +26,11 @@ const loginHandling = async (values) => {
   });
   const user = {
     ...res.data.user,
-    role: window.location.pathname.includes("dashboard") ? "admin" : "student",
+    role: window.location.pathname.includes("dashboard")
+      ? res.data.user.email.toLowerCase().includes("instructor")
+        ? "instructor"
+        : "admin"
+      : "student",
   };
   localStorage.setItem("token", res.data.token);
   localStorage.setItem("user", JSON.stringify(user));

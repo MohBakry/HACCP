@@ -4,6 +4,7 @@ import styles from "./styles.module.css";
 import logoW from "../../assets/images/logo-white.png";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../Redux/auth/user.store";
+import Instructors from "../../pages/dashBoard/instructors";
 
 export default function DashboardSidebar() {
   const { user } = useSelector((state) => state.user);
@@ -62,6 +63,13 @@ export default function DashboardSidebar() {
       {
         path: "/dashboard/instructors",
         link: "Instructors",
+        icon: <i className="fas fa-tachometer-alt me-2"></i>,
+      },
+    ],
+    instructor: [
+      {
+        path: "/dashboard/instructor-courses",
+        link: "My Courses",
         icon: <i className="fas fa-tachometer-alt me-2"></i>,
       },
     ],

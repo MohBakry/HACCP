@@ -29,6 +29,7 @@ import AdminCompletedCourses from "./pages/dashBoard/cmpltCourses";
 import Instructors from "./pages/dashBoard/instructors";
 import MyCourses from "./pages/profile/myCourses";
 import RecommendedCourses from "./pages/profile/recommendedCourses";
+import ListInstructorCourses from "./pages/instructorDashboard/ListCourses";
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -46,6 +47,10 @@ function App() {
           <Route path="/createExam" element={<CreateExam />} />
           <Route path="/examsPage" element={<ExamsPage />} />
           <Route path="/dashBoard/manage-courses" element={<CourseManager />} />
+          <Route
+            path="/dashboard/instructor-courses"
+            element={<ListInstructorCourses />}
+          />
           <Route
             path="/dashBoard/current-courses"
             element={<AdminCurrentCourses />}

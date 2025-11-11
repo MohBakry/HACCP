@@ -38,8 +38,14 @@ export default function Login() {
       .unwrap()
       .then(() => {
         if (currentPath.includes("dashboard")) {
-          dispatch(setRole("admin"));
-          navigate("/dashboard/manage-courses");
+          if (values.email.toLowerCase().includes("instructor")) {
+            dispatch(setRole("instructor"));
+            navigate("/dashboard/instructor-courses");
+            return;
+          } else {
+            dispatch(setRole("admin"));
+            navigate("/dashboard/manage-courses");
+          }
         } else {
           dispatch(setRole("student"));
           navigate("/my-courses");
