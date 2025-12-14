@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import style from "./styles.module.css";
-import { useFormik } from "formik";
+import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,12 +25,7 @@ export default function Login() {
     email: Yup.string()
       .required("Email is required")
       .email("Enter a valid email"),
-    password: Yup.string()
-      .required("Password is required")
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/,
-        "Invalid password"
-      ),
+    password: Yup.string().required("Password is required"),
   });
 
   async function submitForm(values) {
@@ -52,15 +47,15 @@ export default function Login() {
         }
       });
   }
+  const initialValues = {
+    email: "",
+    password: "",
+  };
 
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    onSubmit: submitForm,
-    validationSchema,
-  });
+  // const formik = useFormik({
+  //   onSubmit: submitForm,
+  //   validationSchema,
+  // });
 
   return (
     <div
@@ -69,54 +64,69 @@ export default function Login() {
       <div className={`${style.signin} col-lg-4 rounded-2 p-5`}>
         <h2 className="text-white text-center pb-3">Sign in</h2>
 
-        <form onSubmit={formik.handleSubmit}>
-          {error && <div className="alert alert-info">{error}</div>}
+        <Formik
+          initialValues={initialValues}
+          onSubmit={submitForm}
+          validationSchema={validationSchema}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            isValid,
+            dirty,
+            handleChange,
+            handleBlur,
+          }) => (
+            <Form>
+              {error && <div className="alert alert-info">{error}</div>}
+              <input
+                type="email"
+                name="email"
+                className="form-control mb-3"
+                placeholder="Email"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.email}
+              />
+              {errors.email && touched.email && (
+                <div className="alert text-white">{errors.email}</div>
+              )}
 
-          <input
-            type="email"
-            name="email"
-            className="form-control mb-3"
-            placeholder="Email"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.email}
-          />
-          {formik.errors.email && formik.touched.email && (
-            <div className="alert text-white">{formik.errors.email}</div>
+              <input
+                type="password"
+                name="password"
+                className="form-control my-3"
+                placeholder="Password"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.password}
+              />
+              {errors.password && touched.password && (
+                <div className="alert text-white">{errors.password}</div>
+              )}
+
+              <div className="d-flex">
+                <input type="checkbox" className={`${style.checkBox} m-2`} />{" "}
+                <span className={`${style.textColor} m-2`}>Remember me</span>
+                <Link
+                  className={`${style.link} ms-auto text-decoration-none`}
+                  to="/"
+                >
+                  Forgot Password?
+                </Link>
+              </div>
+
+              <button
+                type="submit"
+                disabled={!(isValid && dirty)}
+                className={`${style.btns} btn w-100 my-3`}
+              >
+                {loading ? "Signing in..." : "Sign in"}
+              </button>
+            </Form>
           )}
-
-          <input
-            type="password"
-            name="password"
-            className="form-control my-3"
-            placeholder="Password"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.password}
-          />
-          {formik.errors.password && formik.touched.password && (
-            <div className="alert text-white">{formik.errors.password}</div>
-          )}
-
-          <div className="d-flex">
-            <input type="checkbox" className={`${style.checkBox} m-2`} />{" "}
-            <span className={`${style.textColor} m-2`}>Remember me</span>
-            <Link
-              className={`${style.link} ms-auto text-decoration-none`}
-              to="/"
-            >
-              Forgot Password?
-            </Link>
-          </div>
-
-          <button
-            type="submit"
-            disabled={!(formik.isValid && formik.dirty)}
-            className={`${style.btns} btn w-100 my-3`}
-          >
-            {loading ? "Signing in..." : "Sign in"}
-          </button>
-        </form>
+        </Formik>
         {!isDashboard && (
           <div className="d-flex">
             <h6 className={`${style.textColor}`}>

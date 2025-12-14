@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: "https://ecommerce.routemisr.com/api/v1/",
+  baseURL: "http://localhost:5000/api/",
   headers: {
     "Content-Type": "application/json",
   },

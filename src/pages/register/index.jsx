@@ -17,7 +17,7 @@ export default function Register() {
     email: "",
     password: "",
     rePassword: "",
-    phone: "",
+    phoneNumber: "",
   };
 
   const validationSchema = Yup.object({
@@ -26,7 +26,7 @@ export default function Register() {
       .min(3, "min 3")
       .max(20, "max 20"),
     email: Yup.string().required("email required").email("enter valid email"),
-    phone: Yup.string()
+    phoneNumber: Yup.string()
       .required("phone required")
       .matches(/^01[0125][0-9]{8}$/),
     password: Yup.string()
@@ -94,13 +94,15 @@ export default function Register() {
               onChange={formik.handleChange}
               type="tel"
               className="form-control my-3"
-              name="phone"
+              name="phoneNumber"
               id="phone"
               placeholder="Phone Number"
             />
 
-            {formik.errors.name && formik.touched.phone && (
-              <div className="alert text-white">{formik.errors.phone}</div>
+            {formik.errors.name && formik.touched.phoneNumber && (
+              <div className="alert text-white">
+                {formik.errors.phoneNumber}
+              </div>
             )}
 
             <input
@@ -140,12 +142,14 @@ export default function Register() {
             </button>
           </form>
           <div className="d-flex ">
-            <h6>Already have an account?</h6>
             <Link
               className={`${style.link} ms-auto text-decoration-none `}
               href="/login"
             >
-              Sign In
+              <h6 style={{ color: "white" }}>
+                Already have an account?
+                <span style={{}}>Sign In</span>
+              </h6>
             </Link>
           </div>
         </div>

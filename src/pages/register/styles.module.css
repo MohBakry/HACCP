@@ -1,25 +1,24 @@
-.login{
-     
-      background-image: url('../../src/Assets/images/signin.jpg');
-      background-size: cover;
+.login {
+  background: radial-gradient(circle, #136a7e, #012f5a);
 }
 
-.signin{
-      background-color: #5ab0c635;
-      border: solid  1px white;
+.signin {
+  background-color: #012f5a;
+  border: solid 2px #012f5a;
 }
-.btn{
-      background-color: #5ab0c6 !important;
-      color:white !important;
+.btn {
+  background-color: #5ab0c6 !important;
+  color: white !important;
 }
-.btn:hover{
-      background-color: white !important;
-      color: #5ab0c6 !important;
+.btn:hover {
+  background-color: white !important;
+  color: #5ab0c6 !important;
 }
-.link{
-      color:#5ab0c6;
-
+.link span {
+  color: #5ab0c6;
+  text-decoration: underline;
+  margin-left: 3px;
 }
-.link:hover{
-      color:white;
+.link:hover {
+  color: white;
 }

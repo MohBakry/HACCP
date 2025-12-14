@@ -5,7 +5,7 @@ export const register = createAsyncThunk(
   "user/register",
   async (body, thunkAPI) => {
     try {
-      return await axiosClient.post("auth/signup", body).then(async () => {
+      return await axiosClient.post("auth/register", body).then(async () => {
         return await loginHandling({
           email: body.email,
           password: body.password,
@@ -20,7 +20,7 @@ export const register = createAsyncThunk(
 );
 
 const loginHandling = async (values) => {
-  const res = await axiosClient.post("auth/signin", {
+  const res = await axiosClient.post("auth/login", {
     email: values.email,
     password: values.password,
   });
