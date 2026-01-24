@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import CourseManager from "./courseManager";
-import CrntCourses from "./crntCourses";
-import CmpltCourses from "./cmpltCourses";
-import Instructors from "./instructors";
-import styles from "./styles.module.css";
+import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import CourseManager from './courseManager';
+import CrntCourses from './currentCourses';
+import CmpltCourses from './compeletedCourses';
+import Instructors from './instructors';
+import styles from './styles.module.css';
 
 export default function AdminDashboard() {
-  const [selectedMenu, setSelectedMenu] = useState("manageCourses");
+  const [selectedMenu, setSelectedMenu] = useState('manageCourses');
 
   return (
     <div className="d-flex">
@@ -66,10 +66,10 @@ export default function AdminDashboard() {
 
       {/* Main Content */}
       <div className="flex-grow-1 p-4">
-        {selectedMenu === "manageCourses" && <CourseManager />}
-        {selectedMenu === "crntCourses" && <CrntCourses />}
-        {selectedMenu === "cmpltCourses" && <CmpltCourses />}
-        {selectedMenu === "instructors" && <Instructors />}
+        {selectedMenu === 'manageCourses' && <CourseManager />}
+        {selectedMenu === 'crntCourses' && <CrntCourses />}
+        {selectedMenu === 'cmpltCourses' && <CmpltCourses />}
+        {selectedMenu === 'instructors' && <Instructors />}
       </div>
     </div>
   );

@@ -1,11 +1,11 @@
-import React from "react";
-import style from "./styles.module.css";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { register } from "../../Redux/auth/user.service";
+import React from 'react';
+import style from './styles.module.css';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { register } from '../../../Redux/auth/user.service';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -13,38 +13,38 @@ export default function Register() {
   const { error, loading } = useSelector((state) => state.user);
 
   const users = {
-    name: "",
-    email: "",
-    password: "",
-    rePassword: "",
-    phoneNumber: "",
+    name: '',
+    email: '',
+    password: '',
+    rePassword: '',
+    phoneNumber: '',
   };
 
   const validationSchema = Yup.object({
     name: Yup.string()
-      .required("name required")
-      .min(3, "min 3")
-      .max(20, "max 20"),
-    email: Yup.string().required("email required").email("enter valid email"),
+      .required('name required')
+      .min(3, 'min 3')
+      .max(20, 'max 20'),
+    email: Yup.string().required('email required').email('enter valid email'),
     phoneNumber: Yup.string()
-      .required("phone required")
+      .required('phone required')
       .matches(/^01[0125][0-9]{8}$/),
     password: Yup.string()
-      .required("password required")
+      .required('password required')
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/,
-        "Password must contain at least 1 uppercase, 1 lowercase, 1 number, 1 special character, and be at least 8 characters long"
+        'Password must contain at least 1 uppercase, 1 lowercase, 1 number, 1 special character, and be at least 8 characters long'
       ),
     rePassword: Yup.string()
-      .required("password matching required")
-      .oneOf([Yup.ref("password")]),
+      .required('password matching required')
+      .oneOf([Yup.ref('password')]),
   });
 
   async function submitForm(values) {
     dispatch(register(values))
       .unwrap()
       .then(() => {
-        navigate("/my-courses");
+        navigate('/my-courses');
       });
   }
 
@@ -138,7 +138,7 @@ export default function Register() {
               disabled={!(formik.isValid && formik.dirty) || loading}
               className={`${style.btn} btn w-100  my-3`}
             >
-              Register{" "}
+              Register{' '}
             </button>
           </form>
           <div className="d-flex ">
@@ -146,7 +146,7 @@ export default function Register() {
               className={`${style.link} ms-auto text-decoration-none `}
               href="/login"
             >
-              <h6 style={{ color: "white" }}>
+              <h6 style={{ color: 'white' }}>
                 Already have an account?
                 <span style={{}}>Sign In</span>
               </h6>

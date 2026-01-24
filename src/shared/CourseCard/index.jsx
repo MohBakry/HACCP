@@ -1,22 +1,25 @@
-import React from "react";
-import styles from "./styles.module.css";
-import useResponsiveSizes from "../../hooks/useResponsiveSizes";
-import { Link } from "react-router-dom";
-
+import React from 'react';
+import styles from './styles.module.css';
+import useResponsiveSizes from '../../hooks/useResponsiveSizes';
+import { Link, useNavigate } from 'react-router-dom';
+// import { useSelector } from 'react-redux';
+import { Dropdown } from 'react-bootstrap';
 const CourseCard = ({
-  id,
-  image,
+  _id,
+  imageUrl,
   duration,
   title,
   rating,
   price,
   discount = 0,
-  viewMode = "grid",
-  adminMode = true,
+  viewMode = 'grid',
+  adminMode = false,
   onEdit,
   onDelete,
+  onAddGroup,
   redirectTo,
 }) => {
+  const navigate = useNavigate();
   const gridSizes = [
     { minWidth: 0, maxWidth: 450, width: 400, height: 280 },
     { minWidth: 450, maxWidth: 1000, width: 900, height: 200 },
@@ -30,7 +33,7 @@ const CourseCard = ({
     { minWidth: 1600, maxWidth: Infinity, width: 400, height: 250 },
   ];
   const { width, height } = useResponsiveSizes(
-    viewMode === "grid" ? gridSizes : listSizes
+    viewMode === 'grid' ? gridSizes : listSizes
   );
 
   const renderStars = (rating) => {
@@ -52,17 +55,17 @@ const CourseCard = ({
 
   const cardContent = (
     <div
-      className={`${styles.card} ${viewMode === "list" ? styles.listView : ""}`}
+      className={`${styles.card} ${viewMode === 'list' ? styles.listView : ''}`}
     >
       <div className={styles.imageContainer}>
         <img
-          src={image}
+          src={imageUrl}
           alt={title}
           className={styles.cardImage}
           style={{ width: width, height: height }}
         />
 
-        {/* Duration Badge — right corner */}
+        {/* Duration Badge — top right corner */}
         <div className={styles.durationBadge}>
           <i className="fas fa-clock-rotate-left"></i> {duration}
         </div>
@@ -72,9 +75,9 @@ const CourseCard = ({
           <div
             className={styles.durationBadge}
             style={{
-              left: "0.5rem",
-              right: "auto",
-              background: "#dc3545",
+              left: '0.5rem',
+              right: 'auto',
+              background: '#dc3545',
             }}
           >
             -{discount}%
@@ -83,8 +86,73 @@ const CourseCard = ({
       </div>
 
       <div className={`${styles.cardBody}`}>
-        <h5 className={styles.cardTitle}>{title}</h5>
-        <div className={styles.divider} />
+        <div className="row">
+          <Link
+            to={redirectTo ? redirectTo : `/courses/${_id}`}
+            className="text-decoration-none"
+          >
+            <div className="col">
+              <h5 className={styles.cardTitle}>{title}</h5>
+              <div className={styles.divider} />
+            </div>
+          </Link>
+          {adminMode && (
+            <div className="col-1">
+              <div className={styles.optionsDropdown}>
+                <Dropdown>
+                  <Dropdown.Toggle
+                    as="span"
+                    className={`${styles.dropdownToggle} ${styles.cursorPointer}`}
+                    // onClick={(e) => e.stopPropagation()}
+                  >
+                    <i className="fas fa-ellipsis-v"></i>
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onAddGroup?.(_id);
+                        navigate(
+                          `/dashboard/manage-courses/${_id}/course-groups`
+                        );
+                      }}
+                    >
+                      Course Groups
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(
+                          `/dashboard/manage-courses/course-content/${_id}`
+                        );
+                      }}
+                    >
+                      Course Content
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onEdit?.(_id);
+                        navigate(`/dashboard/manage-courses/edit/${_id}`);
+                      }}
+                    >
+                      Edit Course
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      className="text-danger"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onDelete?.(_id);
+                      }}
+                    >
+                      Remove
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
+            </div>
+          )}
+        </div>
 
         <div className={`${styles.cardFooter} d-flex flex-wrap w-100`}>
           <div className={styles.ratingSection}>
@@ -93,7 +161,7 @@ const CourseCard = ({
           </div>
 
           <div
-            className={`${viewMode === "list" ? "w-100 w-md-auto py-2" : ""} ${
+            className={`${viewMode === 'list' ? 'w-100 w-md-auto py-2' : ''} ${
               styles.price
             }`}
           >
@@ -109,36 +177,11 @@ const CourseCard = ({
             )}
           </div>
         </div>
-
-        {adminMode && (
-          <div className="mt-2">
-            <button
-              className="btn btn-sm btn-outline-warning me-2"
-              onClick={() => onEdit?.(id)}
-            >
-              Edit
-            </button>
-            <button
-              className="btn btn-sm btn-outline-danger"
-              onClick={() => onDelete?.(id)}
-            >
-              Remove
-            </button>
-          </div>
-        )}
       </div>
     </div>
   );
 
-  return (
-    <Link
-      to={redirectTo ? redirectTo : `/courses/${id}`}
-      className="text-decoration-none"
-    >
-      {console.log(redirectTo, "redirectTo")}
-      {cardContent}
-    </Link>
-  );
+  return <>{cardContent}</>;
 };
 
 export default CourseCard;

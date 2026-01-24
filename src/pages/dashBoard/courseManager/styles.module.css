@@ -1,18 +1,17 @@
-h3{
-      color:#0d3b66 ;
+h3 {
+  color: #0d3b66;
 }
-.addCourseBtn{
-      background-color: #0d3b66;
-      border:0;
+.addButton {
+  background-color: #1f1f2e;
+  border: 1px solid #1f1f2e;
 }
-.addCourseBtn:hover{
-      background-color: #83c7d0;
+.addButton:hover {
+  background-color: #83c7d0;
 }
-.addGroupBtn{
-      background-color: #83c7d0;
-      border:0;
+.addGroupBtn {
+  background-color: #83c7d0;
+  border: 0;
 }
-.addGroupBtn:hover{
-      background-color: #0d3b66;
-      
+.addGroupBtn:hover {
+  background-color: #0d3b66;
 }

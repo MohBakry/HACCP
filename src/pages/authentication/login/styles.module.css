@@ -1,0 +1,32 @@
+.login {
+  /* background-image: url('../../src/Assets/images/signin.jpg');
+      background-size: cover; */
+  background: radial-gradient(circle, #136a7e, #012f5a);
+}
+
+.signin {
+  background-color: #012f5a;
+  border: solid 2px #012f5a;
+  min-width: 506px;
+}
+
+.btns {
+  background-color: #5ab0c6 !important;
+  color: white !important;
+}
+.btns:hover {
+  background-color: white !important;
+  color: #5ab0c6 !important;
+}
+.link {
+  color: #5ab0c6;
+}
+.link:hover {
+  color: white;
+}
+.textColor {
+  color: #5ab0c6 !important;
+}
+input[type='checkbox'].checkBox {
+  border: 1px solid #5ab0c6 !important;
+}

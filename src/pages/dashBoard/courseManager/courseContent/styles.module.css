@@ -1,0 +1,31 @@
+.cursorPointer {
+  cursor: pointer !important;
+}
+
+.cursorPointer i {
+  padding: 6px;
+  font-size: 14px;
+}
+
+.cursorPointer:hover i {
+  background-color: #f1f1f1;
+  border-radius: 4px;
+  cursor: pointer !important;
+}
+
+.cursorPointer i::after {
+  display: none !important;
+}
+
+.dropdownToggle::after {
+  display: none !important;
+}
+.button {
+  background-color: #1f1f2e;
+  border: 1px solid #1f1f2e;
+  color: white;
+}
+.button:hover {
+  background-color: #83c7d0;
+  border-color: #83c7d0;
+}

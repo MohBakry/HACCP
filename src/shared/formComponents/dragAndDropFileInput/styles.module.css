@@ -1,0 +1,65 @@
+.dropZone {
+  width: 100%;
+  min-height: 140px;
+
+  border: 2px dashed #83c7d0;
+  border-radius: 10px;
+
+  background-color: rgba(131, 199, 208, 0.08);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  cursor: pointer;
+  text-align: center;
+
+  color: #1f1f2e;
+
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+/* Hover / focus */
+.dropZone:hover,
+.dropZone:focus-within {
+  border-color: #1f1f2e;
+  background-color: rgba(131, 199, 208, 0.15);
+  color: #1f1f2e;
+}
+
+/* Icon */
+.dropZone i {
+  opacity: 0.85;
+}
+
+/* Text */
+.dropZone p {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* Compact version */
+.compact {
+  min-height: 100px;
+  font-size: 0.85rem;
+}
+
+/* Uploading state */
+.uploading {
+  border-style: solid;
+  background-color: rgba(31, 31, 46, 0.05);
+  cursor: default;
+}
+
+/* Error state */
+.error {
+  border-color: #dc2626;
+  background-color: rgba(220, 38, 38, 0.08);
+  color: #dc2626;
+}

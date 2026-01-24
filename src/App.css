@@ -40,3 +40,38 @@
 .read-the-docs {
   color: #888;
 } */
+
+/* TipTap table styles */
+.ProseMirror table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+.ProseMirror {
+  background-color: white;
+}
+
+.ProseMirror th,
+.ProseMirror td {
+  border: 1px solid #dee2e6;
+  padding: 0.5rem;
+  vertical-align: top;
+}
+
+.ProseMirror th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+.ProseMirror table p {
+  margin: 0;
+}
+
+.ProseMirror:focus {
+  outline: none;
+}
+
+/* Sometimes browsers add focus-visible */
+.ProseMirror:focus-visible {
+  outline: none;
+}

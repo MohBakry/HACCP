@@ -34,6 +34,13 @@
   z-index: 2;
 }
 
+.optionsDropdown {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 3;
+}
+
 .cardBody {
   padding: 1rem;
 }
@@ -86,4 +93,27 @@
 
 .listView .cardImage {
   border-radius: 4px;
+}
+
+.cursorPointer {
+  cursor: pointer !important;
+}
+
+.cursorPointer i {
+  padding: 6px;
+  font-size: 14px;
+}
+
+.cursorPointer:hover i {
+  background-color: #f1f1f1;
+  border-radius: 4px;
+  cursor: pointer !important;
+}
+
+.cursorPointer i::after {
+  display: none !important;
+}
+
+.dropdownToggle::after {
+  display: none !important;
 }

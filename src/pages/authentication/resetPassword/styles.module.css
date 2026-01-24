@@ -1,12 +1,13 @@
 .login {
   /* background-image: url('../../src/Assets/images/signin.jpg');
-      background-size: cover; */
+          background-size: cover; */
   background: radial-gradient(circle, #136a7e, #012f5a);
 }
 
 .signin {
   background-color: #012f5a;
   border: solid 2px #012f5a;
+  min-width: 506px;
 }
 
 .btns {
@@ -26,6 +27,6 @@
 .textColor {
   color: #5ab0c6 !important;
 }
-input[type="checkbox"].checkBox {
+input[type='checkbox'].checkBox {
   border: 1px solid #5ab0c6 !important;
 }

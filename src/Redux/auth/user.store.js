@@ -1,17 +1,17 @@
 // redux/userSlice.js
-import { createSlice } from "@reduxjs/toolkit";
-import { login, register } from "./user.service";
+import { createSlice } from '@reduxjs/toolkit';
+import { login, register } from './user.service';
 
 const initialState = {
-  token: localStorage.getItem("token") || null,
+  token: localStorage.getItem('token') || null,
   loading: false,
   error: null,
-  user: JSON.parse(localStorage.getItem("user")) || null,
+  user: JSON.parse(localStorage.getItem('user')) || null,
   role: null,
 };
 
 const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
     setUserToken: (state, action) => {
@@ -23,8 +23,8 @@ const userSlice = createSlice({
     logout: (state) => {
       state.token = null;
       state.user = null;
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
     },
     setRole: (state, action) => {
       state.role = action.payload;
@@ -38,9 +38,10 @@ const userSlice = createSlice({
       })
       .addCase(register.fulfilled, (state, action) => {
         state.loading = false;
-        console.log(action.payload, "action.payload");
+        console.log(action.payload, 'action.payload');
         state.token = action.payload.token;
         state.user = action.payload.user;
+        state.role = action.payload.user.role;
       })
       .addCase(register.rejected, (state, action) => {
         state.loading = false;
@@ -52,7 +53,6 @@ const userSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
-        console.log(action.payload, "action.payload");
         state.token = action.payload.token;
         state.user = action.payload.user;
       })

@@ -1,0 +1,21 @@
+.overlay {
+  position: fixed; /* covers whole screen */
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1050; /* higher than Bootstrap modals backdrop */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #fff;
+}

@@ -1,0 +1,26 @@
+/* SelectInput.module.css */
+.select {
+  min-width: 160px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  /* padding: 0.5rem 0.75rem; */
+  background-color: #f8f9fa;
+  color: #333;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.select:focus {
+  border-color: #83c7d0;
+  box-shadow: 0 0 0 0.2rem rgba(131, 199, 208, 0.25);
+  outline: none;
+}
+
+/* Optional: style the disabled state */
+.select:disabled {
+  background-color: #e9ecef;
+  color: #6c757d;
+}
+.select::after {
+  border: none !important;
+  border-radius: 8px !important;
+}

@@ -1,0 +1,8 @@
+.label {
+  color: 'white !important';
+}
+.required::after {
+  content: ' *';
+  color: #dc3545; /* Bootstrap danger red */
+  font-weight: 600;
+}

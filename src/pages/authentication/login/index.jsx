@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
-import style from "./styles.module.css";
-import { Form, Formik } from "formik";
-import * as Yup from "yup";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../Redux/auth/user.service";
-import { setRole } from "../../Redux/auth/user.store";
+import React, { useEffect } from 'react';
+import style from './styles.module.css';
+import { Form, Formik } from 'formik';
+import * as Yup from 'yup';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../../Redux/auth/user.service';
+import { setRole } from '../../../Redux/auth/user.store';
+import TextInput from '../../../shared/formComponents/textInput';
+import PasswordInput from '../../../shared/formComponents/passwordInput';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -16,40 +18,59 @@ export default function Login() {
   const [isDashboard, setIsDashboard] = React.useState(false);
 
   useEffect(() => {
-    if (currentPath.includes("dashboard")) {
+    if (currentPath.includes('dashboard')) {
       setIsDashboard(true);
     }
   }, [currentPath]);
 
   const validationSchema = Yup.object({
     email: Yup.string()
-      .required("Email is required")
-      .email("Enter a valid email"),
-    password: Yup.string().required("Password is required"),
+      .required('Email is required')
+      .email('Enter a valid email'),
+    password: Yup.string().required('Password is required'),
   });
 
   async function submitForm(values) {
     dispatch(login(values))
       .unwrap()
-      .then(() => {
-        if (currentPath.includes("dashboard")) {
-          if (values.email.toLowerCase().includes("instructor")) {
-            dispatch(setRole("instructor"));
-            navigate("/dashboard/instructor-courses");
-            return;
-          } else {
-            dispatch(setRole("admin"));
-            navigate("/dashboard/manage-courses");
-          }
-        } else {
-          dispatch(setRole("student"));
-          navigate("/my-courses");
+      .then((res) => {
+        console.log('login res', res);
+        const role = res?.user?.role;
+        switch (role) {
+          case 'admin':
+            if (currentPath.includes('dashboard')) {
+              navigate('/dashboard/manage-courses');
+            }
+            break;
+          case 'instructor':
+            if (currentPath.includes('dashboard')) {
+              navigate('/dashboard/manage-courses');
+            }
+            break;
+          case 'student':
+            navigate('/my-courses');
+            break;
+          default:
+            break;
         }
+        // if (currentPath.includes('dashboard')) {
+        //   if (values.email.toLowerCase().includes('instructor')) {
+        //     dispatch(setRole('instructor'));
+        //     navigate('/dashboard/instructor-courses');
+        //     return;
+        //   } else {
+        //     dispatch(setRole('admin'));
+        //     navigate('/dashboard/manage-courses');
+        //   }
+        // } else {
+        //   dispatch(setRole('student'));
+        //   navigate('/my-courses');
+        // }
       });
   }
   const initialValues = {
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   };
 
   // const formik = useFormik({
@@ -79,35 +100,30 @@ export default function Login() {
             handleBlur,
           }) => (
             <Form>
-              {error && <div className="alert alert-info">{error}</div>}
-              <input
+              <TextInput
+                label={'Email'}
                 type="email"
                 name="email"
                 className="form-control mb-3"
-                placeholder="Email"
-                onChange={handleChange}
-                onBlur={handleBlur}
+                labelClassName="text-light"
+                placeholder="Enter your email"
                 value={values.email}
+                required
               />
-              {errors.email && touched.email && (
-                <div className="alert text-white">{errors.email}</div>
-              )}
-
-              <input
+              <PasswordInput
+                label="Password"
                 type="password"
                 name="password"
-                className="form-control my-3"
-                placeholder="Password"
+                className="form-control my-3 text-light"
+                placeholder="Enter your password"
+                labelClassName="text-light"
+                required
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.password}
               />
-              {errors.password && touched.password && (
-                <div className="alert text-white">{errors.password}</div>
-              )}
-
               <div className="d-flex">
-                <input type="checkbox" className={`${style.checkBox} m-2`} />{" "}
+                <input type="checkbox" className={`${style.checkBox} m-2`} />{' '}
                 <span className={`${style.textColor} m-2`}>Remember me</span>
                 <Link
                   className={`${style.link} ms-auto text-decoration-none`}
@@ -122,7 +138,7 @@ export default function Login() {
                 disabled={!(isValid && dirty)}
                 className={`${style.btns} btn w-100 my-3`}
               >
-                {loading ? "Signing in..." : "Sign in"}
+                {loading ? 'Signing in...' : 'Sign in'}
               </button>
             </Form>
           )}
