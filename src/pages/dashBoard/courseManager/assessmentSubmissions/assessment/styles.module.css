@@ -1,0 +1,93 @@
+/* Assessment components styles */
+
+.submissionsContainer {
+  padding: 20px;
+}
+
+.filterSection {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.filterSelect {
+  min-width: 200px;
+}
+
+.statsCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.statCard {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+
+.statValue {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #0d6efd;
+  margin-bottom: 10px;
+}
+
+.statLabel {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.tableContainer {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.actionButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.actionButtons button {
+  white-space: nowrap;
+}
+
+.noData {
+  padding: 40px;
+  text-align: center;
+  color: #999;
+}
+
+.badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+  .filterSection {
+    flex-direction: column;
+  }
+
+  .filterSelect {
+    min-width: 100%;
+  }
+
+  .statsCards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .actionButtons {
+    flex-direction: column;
+  }
+
+  .actionButtons button {
+    width: 100%;
+  }
+}

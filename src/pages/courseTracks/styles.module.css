@@ -1,0 +1,48 @@
+.trackCard {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid #e0e0e0;
+  height: 100%;
+}
+
+.trackCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(1, 47, 90, 0.2);
+  border-color: #83c7d0;
+}
+
+.trackIcon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #012F5A 0%, #83c7d0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.trackIcon i {
+  font-size: 2rem;
+  color: white;
+}
+
+.trackMeta {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.viewDetails {
+  color: #012F5A;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trackCard:hover .viewDetails i {
+  transform: translateX(5px);
+  transition: transform 0.3s ease;
+}

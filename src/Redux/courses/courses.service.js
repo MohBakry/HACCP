@@ -81,80 +81,17 @@ export const uploadCourseThumbnail = createAsyncThunk(
   }
 );
 
-export const getGroups = createAsyncThunk(
-  'get/groups',
-  async (courseId, thunkAPI) => {
-    try {
-      const res = await axiosClient.get(`/course/${courseId}/groups`);
-      return res.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(
-        error.response?.data?.message || 'Failed to get groups'
-      );
-    }
-  }
-);
-
-export const addGroup = createAsyncThunk(
-  'add/group',
-  async (body, thunkAPI) => {
-    try {
-      const res = await axiosClient.post(
-        `/course/${body.courseId}/groups`,
-        body
-      );
-      return res.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(
-        error.response?.data?.message || 'Failed to add group'
-      );
-    }
-  }
-);
-
-export const updateGroup = createAsyncThunk(
-  'update/group',
-  async (body, thunkAPI) => {
-    try {
-      const res = await axiosClient.put(
-        `/course/${body.courseId}/groups/${body._id}`,
-        body
-      );
-      return res.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(
-        error.response?.data?.message || 'Failed to update group'
-      );
-    }
-  }
-);
-
-export const deleteGroup = createAsyncThunk(
-  'delete/group',
-  async (courseId, groupId, thunkAPI) => {
-    try {
-      const res = await axiosClient.delete(
-        `/course/${courseId}/groups/${groupId}`
-      );
-      return res.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(
-        error.response?.data?.message || 'Failed to delete group'
-      );
-    }
-  }
-);
-
 export const uploadMaterial = createAsyncThunk(
   'upload/material',
   async ({ courseId, moduleId, title, file }, thunkAPI) => {
+    console.log(file, 'file');
     try {
       const formData = new FormData();
       formData.append('title', title);
       formData.append('file', file);
 
       const res = await axiosClient.post(
-        `courses/${courseId}/${moduleId}/upload`,
+        `course-content/${courseId}/${moduleId}/upload`,
         formData,
         {
           headers: {
@@ -166,6 +103,95 @@ export const uploadMaterial = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(
         error.response?.data?.message || 'Failed to upload material'
+      );
+    }
+  }
+);
+
+export const getPublishedCourses = createAsyncThunk(
+  'get/publishedCourses',
+  async (_, thunkAPI) => {
+    try {
+      const res = await axiosClient.get('courses/published');
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || 'Failed to get published courses'
+      );
+    }
+  }
+);
+
+export const getHighlightedCourses = createAsyncThunk(
+  'get/highlightedCourses',
+  async (_, thunkAPI) => {
+    try {
+      const res = await axiosClient.get('courses/highlighted');
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || 'Failed to get highlighted courses'
+      );
+    }
+  }
+);
+
+export const getPublishedCourseDetails = createAsyncThunk(
+  'get/publishedCourseDetails',
+  async (courseId, thunkAPI) => {
+    try {
+      const res = await axiosClient.get(`courses/published/${courseId}`);
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || 'Failed to get course details'
+      );
+    }
+  }
+);
+
+export const getEnrolledCourses = createAsyncThunk(
+  'get/enrolledCourses',
+  async (_, thunkAPI) => {
+    try {
+      const res = await axiosClient.get('courses/my-courses');
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || 'Failed to get enrolled courses'
+      );
+    }
+  }
+);
+
+export const getCoursesWithCompletedStudents = createAsyncThunk(
+  'get/coursesWithCompletedStudents',
+  async (_, thunkAPI) => {
+    try {
+      const res = await axiosClient.get(
+        'directory/courses-with-completed-students'
+      );
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message ||
+          'Failed to get courses with completed students'
+      );
+    }
+  }
+);
+
+export const verifyStudentCourseCompletion = createAsyncThunk(
+  'verify/studentCourseCompletion',
+  async ({ studentId, courseId }, thunkAPI) => {
+    try {
+      const res = await axiosClient.get(
+        `courses/verify-completion/${courseId}/${studentId}`
+      );
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || 'Failed to verify completion'
       );
     }
   }

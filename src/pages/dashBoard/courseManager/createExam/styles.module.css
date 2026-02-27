@@ -1,0 +1,19 @@
+.optionRow {
+  position: relative;
+}
+
+.correctCheckbox {
+  min-width: 20px;
+}
+
+.optionRow .form-control {
+  flex: 1;
+}
+
+.questionCard {
+  transition: box-shadow 0.2s;
+}
+
+.questionCard:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

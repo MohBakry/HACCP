@@ -5,6 +5,9 @@ import * as Yup from 'yup';
 import styles from './styles.module.css';
 import axiosClient from '../../../../config/axiosClient';
 import { useState } from 'react';
+import ProgressOverlay from '../../../../shared/overlay/progressOverlay';
+import { useDispatch } from 'react-redux';
+import { getCourseContent } from '../../../../Redux/courseContent/courseContent.service';
 
 const moduleVideoSchema = Yup.object({
   video: Yup.mixed()
@@ -16,11 +19,13 @@ const moduleVideoSchema = Yup.object({
     ),
 });
 
-const IntroVideoUpload = () => {
+const IntroVideoUpload = ({ course }) => {
   const [progress, setProgress] = useState(0);
-  const [videoId, setVideoId] = useState(null);
+  // const [videoId, setVideoId] = useState(null);
   const [uploading, setUploading] = useState(false);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
+
+  const dispatch = useDispatch();
 
   const uploadVideo = async (file) => {
     console.log('Uploading video file:', file);
@@ -29,7 +34,7 @@ const IntroVideoUpload = () => {
     const res = await axiosClient.post('/courses/intro-video-upload-url');
 
     const { uploadURL, videoId } = res.data;
-
+    setUploading(true);
     // 2️⃣ Upload video to Cloudflare
     const formData = new FormData();
     formData.append('file', file);
@@ -45,7 +50,17 @@ const IntroVideoUpload = () => {
 
     xhr.onload = () => {
       console.log('Upload completed');
-      setVideoId(videoId);
+      // setVideoId(videoId);
+      axiosClient
+        .post(`/courses/${course._id}/intro-video`, { videoId })
+        .then(() => {
+          setUploading(false);
+          dispatch(getCourseContent(course._id));
+        })
+        .catch(() => {
+          // setError('Failed to save video info');
+          setUploading(false);
+        });
     };
 
     xhr.onerror = () => {
@@ -56,20 +71,26 @@ const IntroVideoUpload = () => {
   };
 
   // 1️⃣ Video already exists → show preview
-  if (false) {
+  if (course?.introVideoUrl) {
     return (
       <Accordion.Item eventKey={0}>
         <Accordion.Header>Course Introduction Video</Accordion.Header>
 
         <Accordion.Body>
           <div>
-            <video controls width="100%" src={''} className="mb-2" />
+            <iframe
+              src={course.introVideoUrl}
+              width="100%"
+              height="400"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+            />
 
             <Formik
               initialValues={{ video: null }}
               validationSchema={moduleVideoSchema}
-              onSubmit={(values, { resetForm }) => {
-                //     onUpload(values.video);
+              onSubmit={async (values, { resetForm }) => {
+                await uploadVideo(values.video);
                 resetForm();
               }}
             >
@@ -80,17 +101,19 @@ const IntroVideoUpload = () => {
                     accept="video/*"
                     disabled={uploading}
                   />
-
-                  <Button
-                    type="submit"
-                    className="mt-2"
-                    disabled={!isValid || uploading}
-                  >
-                    Replace Video
-                  </Button>
+                  <div className="w-100 d-flex justify-content-end">
+                    <Button
+                      type="submit"
+                      className={`${styles.button} mt-3`}
+                      disabled={!isValid || uploading}
+                    >
+                      Replace Video
+                    </Button>
+                  </div>
                 </Form>
               )}
             </Formik>
+            <ProgressOverlay isLoading={uploading} progress={progress} />
           </div>
         </Accordion.Body>
       </Accordion.Item>
@@ -131,6 +154,7 @@ const IntroVideoUpload = () => {
             </Form>
           )}
         </Formik>
+        <ProgressOverlay isLoading={uploading} progress={progress} />
       </Accordion.Body>
     </Accordion.Item>
   );

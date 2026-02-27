@@ -2,11 +2,18 @@
 import { Dropdown } from 'react-bootstrap';
 import styles from '../styles.module.css';
 
-const ModuleHeader = ({ module }) => {
+const ModuleHeader = ({ module, onEditModule }) => {
+  const handleEdit = (e) => {
+    e.stopPropagation();
+    if (onEditModule) {
+      onEditModule(module);
+    }
+  };
+
   return (
     <div className="d-flex justify-content-between align-items-center w-100">
       <span>
-        {module.title} {module.video ? '🎥' : '⚠️'}
+        {module.title} {module.moduleVideoUrl ? '🎥' : '⚠️'}
       </span>
 
       {/* IMPORTANT: stopPropagation + as="span" */}
@@ -20,7 +27,7 @@ const ModuleHeader = ({ module }) => {
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          <Dropdown.Item>Edit</Dropdown.Item>
+          <Dropdown.Item onClick={handleEdit}>Edit</Dropdown.Item>
           <Dropdown.Item className="text-danger">Delete</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>

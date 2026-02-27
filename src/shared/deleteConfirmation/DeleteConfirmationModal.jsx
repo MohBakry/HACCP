@@ -38,7 +38,7 @@ export default function DeleteConfirmModal({
         </Button>
         <Button
           variant="danger"
-          onClick={() => onConfirm(itemId)}
+          onClick={itemId ? () => onConfirm(itemId) : onConfirm}
           disabled={loading}
         >
           {loading ? 'Deleting...' : confirmText}

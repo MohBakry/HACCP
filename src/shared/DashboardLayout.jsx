@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import PageHeader from './dashboardHeader';
 import DashboardSidebar from './DashboardNav';
-import LoadingOverlay from './loadingOverlay';
+import LoadingOverlay from './overlay/loadingOverlay';
 
 export default function DashboardLayout() {
   return (

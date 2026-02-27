@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './styles.module.css';
 import { FaEdit, FaTrash, FaEye } from 'react-icons/fa';
 
-const Table = ({ data, columns, onEdit, onDelete, onView }) => {
+const Table = ({ data, columns, onEdit, onDelete, onView, customActions }) => {
   return (
     <>
       <table className={`table table-striped table-hover ${styles.table}`}>
@@ -11,7 +11,9 @@ const Table = ({ data, columns, onEdit, onDelete, onView }) => {
             {columns.map((col) => (
               <th key={col.key}>{col.label}</th>
             ))}
-            {(onEdit || onDelete || onView) && <th>Actions</th>}
+            {(onEdit || onDelete || onView || customActions) && (
+              <th>Actions</th>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -19,13 +21,18 @@ const Table = ({ data, columns, onEdit, onDelete, onView }) => {
             <tr key={item.id}>
               {columns.map((col) =>
                 col.component ? (
-                  <td key={col.key}>{col.component(item)}</td>
+                  <td key={col.key} style={col?.styles}>
+                    {col.component(item)}
+                  </td>
                 ) : (
-                  <td key={col.key}>{item[col.key]}</td>
+                  <td key={col.key} style={col?.styles}>
+                    {item[col.key]}
+                  </td>
                 )
               )}
-              {(onEdit || onDelete || onView) && (
+              {(onEdit || onDelete || onView || customActions) && (
                 <td className={styles.tableActions}>
+                  {customActions && customActions(item)}
                   {onView && (
                     <FaEye
                       className={styles.actionIcon}

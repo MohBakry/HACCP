@@ -4,10 +4,10 @@ import CourseManager from './courseManager';
 import CrntCourses from './currentCourses';
 import CmpltCourses from './compeletedCourses';
 import Instructors from './instructors';
-import styles from './styles.module.css';
+// import styles from './styles.module.css';
 
 export default function AdminDashboard() {
-  const [selectedMenu, setSelectedMenu] = useState('manageCourses');
+  const [selectedMenu] = useState('manageCourses');
 
   return (
     <div className="d-flex">

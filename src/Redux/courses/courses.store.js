@@ -4,39 +4,51 @@ import {
   addCourse,
   deleteCourse,
   getCourses,
+  getHighlightedCourses,
+  getPublishedCourseDetails,
+  getPublishedCourses,
+  getEnrolledCourses,
+  getCoursesWithCompletedStudents,
+  verifyStudentCourseCompletion,
   updateCourse,
   uploadCourseThumbnail,
-  getGroups,
-  addGroup,
-  updateGroup,
-  deleteGroup,
   uploadMaterial,
 } from './courses.service';
 
 const initialState = {
   courses: [],
+  publishedCourses: [],
+  highlightedCourses: [],
+  enrolledCourses: [],
+  coursesWithCompletedStudents: [],
+  completionVerification: null,
+  courseDetails: null,
   groups: [],
   course: null,
   loading: {
     getCourses: false,
+    getPublishedCourses: false,
+    getHighlightedCourses: false,
+    getPublishedCourseDetails: false,
+    getEnrolledCourses: false,
+    getCoursesWithCompletedStudents: false,
+    verifyStudentCourseCompletion: false,
     addCourse: false,
     updateCourse: false,
     deleteCourse: false,
-    getGroups: false,
-    addGroup: false,
-    updateGroup: false,
-    deleteGroup: false,
     uploadMaterial: false,
   },
   error: {
     getCourses: '',
+    getPublishedCourses: '',
+    getHighlightedCourses: '',
+    getPublishedCourseDetails: '',
+    getEnrolledCourses: '',
+    getCoursesWithCompletedStudents: '',
+    verifyStudentCourseCompletion: '',
     addCourse: '',
     updateCourse: '',
     deleteCourse: '',
-    getGroups: '',
-    addGroup: '',
-    updateGroup: '',
-    deleteGroup: '',
     uploadMaterial: '',
   },
 };
@@ -107,53 +119,6 @@ const coursesSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      .addCase(getGroups.pending, (state) => {
-        state.loading.getGroups = true;
-        state.error.getGroups = '';
-      })
-      .addCase(getGroups.fulfilled, (state, action) => {
-        state.loading.getGroups = false;
-        state.groups = action.payload.groups;
-        state.selectedCourse = action.payload.course;
-      })
-      .addCase(getGroups.rejected, (state, action) => {
-        state.loading.getGroups = false;
-        state.groups = [];
-        state.error.getGroups = action.payload;
-      })
-      .addCase(addGroup.pending, (state) => {
-        state.loading.addGroup = true;
-        state.error.addGroup = '';
-      })
-      .addCase(addGroup.fulfilled, (state) => {
-        state.loading.addGroup = false;
-      })
-      .addCase(addGroup.rejected, (state, action) => {
-        state.loading.addGroup = false;
-        state.error.addGroup = action.payload;
-      })
-      .addCase(updateGroup.pending, (state) => {
-        state.loading.updateGroup = true;
-        state.error.updateGroup = '';
-      })
-      .addCase(updateGroup.fulfilled, (state) => {
-        state.loading.updateGroup = false;
-      })
-      .addCase(updateGroup.rejected, (state, action) => {
-        state.loading.updateGroup = false;
-        state.error.updateGroup = action.payload;
-      })
-      .addCase(deleteGroup.pending, (state) => {
-        state.loading.deleteGroup = true;
-        state.error.deleteGroup = '';
-      })
-      .addCase(deleteGroup.fulfilled, (state) => {
-        state.loading.deleteGroup = false;
-      })
-      .addCase(deleteGroup.rejected, (state, action) => {
-        state.loading.deleteGroup = false;
-        state.error.deleteGroup = action.payload;
-      })
       .addCase(uploadMaterial.pending, (state) => {
         state.loading.uploadMaterial = true;
         state.error.uploadMaterial = '';
@@ -164,6 +129,84 @@ const coursesSlice = createSlice({
       .addCase(uploadMaterial.rejected, (state, action) => {
         state.loading.uploadMaterial = false;
         state.error.uploadMaterial = action.payload;
+      })
+      .addCase(getPublishedCourses.pending, (state) => {
+        state.loading.getPublishedCourses = true;
+        state.error.getPublishedCourses = '';
+      })
+      .addCase(getPublishedCourses.fulfilled, (state, action) => {
+        state.loading.getPublishedCourses = false;
+        state.publishedCourses = action.payload;
+      })
+      .addCase(getPublishedCourses.rejected, (state, action) => {
+        state.loading.getPublishedCourses = false;
+        state.publishedCourses = [];
+        state.error.getPublishedCourses = action.payload;
+      })
+      .addCase(getHighlightedCourses.pending, (state) => {
+        state.loading.getHighlightedCourses = true;
+        state.error.getHighlightedCourses = '';
+      })
+      .addCase(getHighlightedCourses.fulfilled, (state, action) => {
+        state.loading.getHighlightedCourses = false;
+        state.highlightedCourses = action.payload;
+      })
+      .addCase(getHighlightedCourses.rejected, (state, action) => {
+        state.loading.getHighlightedCourses = false;
+        state.highlightedCourses = [];
+        state.error.getHighlightedCourses = action.payload;
+      })
+      .addCase(getPublishedCourseDetails.pending, (state) => {
+        state.loading.getPublishedCourseDetails = true;
+        state.error.getPublishedCourseDetails = '';
+      })
+      .addCase(getPublishedCourseDetails.fulfilled, (state, action) => {
+        state.loading.getPublishedCourseDetails = false;
+        state.courseDetails = action.payload;
+      })
+      .addCase(getPublishedCourseDetails.rejected, (state, action) => {
+        state.loading.getPublishedCourseDetails = false;
+        state.courseDetails = null;
+        state.error.getPublishedCourseDetails = action.payload;
+      })
+      .addCase(getEnrolledCourses.pending, (state) => {
+        state.loading.getEnrolledCourses = true;
+        state.error.getEnrolledCourses = '';
+      })
+      .addCase(getEnrolledCourses.fulfilled, (state, action) => {
+        state.loading.getEnrolledCourses = false;
+        state.enrolledCourses = action.payload;
+      })
+      .addCase(getEnrolledCourses.rejected, (state, action) => {
+        state.loading.getEnrolledCourses = false;
+        state.enrolledCourses = [];
+        state.error.getEnrolledCourses = action.payload;
+      })
+      .addCase(getCoursesWithCompletedStudents.pending, (state) => {
+        state.loading.getCoursesWithCompletedStudents = true;
+        state.error.getCoursesWithCompletedStudents = '';
+      })
+      .addCase(getCoursesWithCompletedStudents.fulfilled, (state, action) => {
+        state.loading.getCoursesWithCompletedStudents = false;
+        state.coursesWithCompletedStudents = action.payload;
+      })
+      .addCase(getCoursesWithCompletedStudents.rejected, (state, action) => {
+        state.loading.getCoursesWithCompletedStudents = false;
+        state.coursesWithCompletedStudents = [];
+        state.error.getCoursesWithCompletedStudents = action.payload;
+      })
+      .addCase(verifyStudentCourseCompletion.pending, (state) => {
+        state.loading.verifyStudentCourseCompletion = true;
+        state.error.verifyStudentCourseCompletion = '';
+      })
+      .addCase(verifyStudentCourseCompletion.fulfilled, (state, action) => {
+        state.loading.verifyStudentCourseCompletion = false;
+        state.completionVerification = action.payload;
+      })
+      .addCase(verifyStudentCourseCompletion.rejected, (state, action) => {
+        state.loading.verifyStudentCourseCompletion = false;
+        state.completionVerification = null;
+        state.error.verifyStudentCourseCompletion = action.payload;
       });
   },
 });

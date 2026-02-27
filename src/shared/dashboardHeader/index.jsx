@@ -8,6 +8,7 @@ const routeTitles = {
   '/students': 'Students',
   '/manage-courses': 'Manage Courses & Groups',
   '/manage-courses/add': 'Add Course',
+  '/dashboard/manage-events': 'Manage Events',
   '/dashboard': 'Dashboard',
 };
 const PageHeader = () => {

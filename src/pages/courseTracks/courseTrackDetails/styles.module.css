@@ -1,0 +1,205 @@
+.trackHeader {
+  padding: 2rem 0;
+  border-bottom: 3px solid #012f5a;
+  margin-bottom: 1rem;
+}
+
+.coursePath {
+  position: relative;
+}
+
+.coursePathItem {
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.courseRow {
+  display: flex;
+  /* align-items: center; */
+  gap: 2rem;
+  position: relative;
+}
+
+.orderCircle {
+  width: 70px;
+  height: 70px;
+  min-width: 70px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #012f5a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  position: relative;
+  margin-top: 10px;
+}
+
+.orderCircle span {
+  color: #012f5a;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.courseCard {
+  flex: 1;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+.courseCard:hover {
+  border-color: #83c7d0;
+  box-shadow: 0 4px 20px rgba(131, 199, 208, 0.2);
+}
+
+.courseCard.expanded {
+  border-color: #012f5a;
+  box-shadow: 0 6px 25px rgba(1, 47, 90, 0.15);
+}
+
+.courseCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  cursor: pointer;
+}
+
+.courseImage {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.courseInfo {
+  flex: 1;
+}
+
+.courseInfo h5 {
+  margin: 0 0 0.5rem 0;
+  color: #012f5a;
+}
+
+.courseMeta {
+  display: flex;
+  gap: 1.5rem;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.expandIcon {
+  color: #83c7d0;
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.courseCard.expanded .expandIcon {
+  transform: rotate(180deg);
+}
+
+.courseDetails {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #f0f0f0;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.courseDescription {
+  color: #495057;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.courseDescription h3,
+.courseDescription h4 {
+  color: #012f5a;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.courseDescription ul {
+  padding-left: 1.5rem;
+}
+
+.courseDescription li {
+  margin-bottom: 0.5rem;
+}
+
+.courseActions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.connectingLine {
+  position: absolute;
+  width: 2px;
+  height: calc(100% - 60px);
+  background: #012f5a55;
+  margin-left: 33px;
+  top: 90px;
+}
+
+.enrollButton {
+  background: linear-gradient(135deg, #012f5a 0%, #83c7d0 100%);
+  color: white;
+  border: none;
+  padding: 1rem 3rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(1, 47, 90, 0.3);
+  transition: all 0.3s ease;
+}
+
+.enrollButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(1, 47, 90, 0.4);
+  background: linear-gradient(135deg, #83c7d0 0%, #012f5a 100%);
+}
+
+@media (max-width: 768px) {
+  .courseRow {
+    gap: 1rem;
+  }
+
+  .orderCircle {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    border: 3px solid #012f5a;
+  }
+
+  .orderCircle span {
+    font-size: 1.3rem;
+  }
+
+  .courseImage {
+    width: 80px;
+    height: 60px;
+  }
+
+  .courseCardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .connectingLine {
+    margin-left: 23px;
+  }
+}

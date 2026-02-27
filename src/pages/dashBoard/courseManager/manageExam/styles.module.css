@@ -1,0 +1,31 @@
+.questionCard {
+  transition: box-shadow 0.2s;
+}
+
+.questionCard:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.optionPreview {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  flex: 1;
+}
+
+.correctOption {
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+}
+
+.optionLabel {
+  font-weight: bold;
+  margin-right: 10px;
+  min-width: 25px;
+}
+
+.optionText {
+  flex: 1;
+}

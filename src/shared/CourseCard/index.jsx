@@ -18,8 +18,11 @@ const CourseCard = ({
   onDelete,
   onAddGroup,
   redirectTo,
+  finalExam,
 }) => {
   const navigate = useNavigate();
+  // const [hasExam, setHasExam] = useState(!!finalExam);
+
   const gridSizes = [
     { minWidth: 0, maxWidth: 450, width: 400, height: 280 },
     { minWidth: 450, maxWidth: 1000, width: 900, height: 200 },
@@ -88,7 +91,7 @@ const CourseCard = ({
       <div className={`${styles.cardBody}`}>
         <div className="row">
           <Link
-            to={redirectTo ? redirectTo : `/courses/${_id}`}
+            to={redirectTo ? redirectTo : `/courses/details/${_id}`}
             className="text-decoration-none"
           >
             <div className="col">
@@ -128,6 +131,22 @@ const CourseCard = ({
                       }}
                     >
                       Course Content
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (finalExam) {
+                          navigate(
+                            `/dashboard/manage-courses/${_id}/manage-exam`
+                          );
+                        } else {
+                          navigate(
+                            `/dashboard/manage-courses/${_id}/create-exam`
+                          );
+                        }
+                      }}
+                    >
+                      {finalExam ? <>Manage Exam</> : <>Create Exam</>}
                     </Dropdown.Item>
                     <Dropdown.Item
                       onClick={(e) => {

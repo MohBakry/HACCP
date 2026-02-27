@@ -1,7 +1,7 @@
 import React from 'react';
 import SearchInput from '../searchInput';
 import SelectInput from './SelectInput';
-import styles from './styles.module.css';
+// import styles from './styles.module.css';
 
 const Filters = ({
   filters,
@@ -26,7 +26,7 @@ const Filters = ({
                 placeholder="Search..."
               />
             )}
-            <div className="mx-3">
+            <div className="d-flex gap-2 mx-3">
               {selects.map((select) => (
                 <SelectInput
                   key={select.key}

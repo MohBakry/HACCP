@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form, Badge } from 'react-bootstrap';
-import jsPDF from 'jspdf';
+import { Modal, Button, Form, Badge, Card } from 'react-bootstrap';
 import * as XLSX from 'xlsx';
+import jsPDF from 'jspdf';
 import styles from './styles.module.css';
 import Filters from '../../../shared/filters/Filters';
 import Table from '../../../shared/table';
 import { GroupForm } from './groupForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteGroup, getGroups } from '../../../Redux/courses/courses.service';
-import { getInstructors } from '../../../Redux/users/users.service';
+import {
+  deleteGroup,
+  getGroups,
+} from '../../../Redux/courseGroups/courseGroups.service';
+import { getInstructors } from '../../../Redux/instructors/instructors.service';
 import DeleteConfirmModal from '../../../shared/deleteConfirmation/DeleteConfirmationModal';
 import { GroupDetailsModal } from './groupDetailsModal';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import LoadingOverlay from '../../../shared/overlay/loadingOverlay';
+import { hideLoading, showLoading } from '../../../Redux/root/root.store';
 
 export default function CourseGroups() {
   const [showModal, setShowModal] = useState(false);
@@ -24,15 +29,16 @@ export default function CourseGroups() {
   const { groups, selectedCourse, instructors, loading } = useSelector(
     (state) => {
       return {
-        groups: state.courses.groups,
+        groups: state.courseGroups.groups,
         selectedCourse: state.courses.selectedCourse,
-        instructors: state.users.instructors,
-        loading: state.courses.loading,
+        instructors: state.instructors.instructors,
+        loading: state.courseGroups.loading,
       };
     }
   );
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { courseId } = useParams();
 
   const selectsConfig = [
@@ -73,6 +79,14 @@ export default function CourseGroups() {
     }
   }, [dispatch, courseId]);
 
+  useEffect(() => {
+    if (loading.getGroups) {
+      dispatch(showLoading());
+    } else {
+      dispatch(hideLoading());
+    }
+  }, [dispatch, loading.getGroups]);
+
   //   useEffect(() => {
   //     if (courseId && courses.length > 0) {
   //       const selectedCourse = courses.find((c) => c._id === courseId);
@@ -82,12 +96,12 @@ export default function CourseGroups() {
 
   const openAddModal = () => {
     setGroup({
-      id: null,
       courseId: courseId || '',
       instructorId: '',
       startDate: '',
       endDate: '',
       discount: 0,
+      name: '',
     });
     setShowModal(true);
   };
@@ -144,8 +158,18 @@ export default function CourseGroups() {
     XLSX.writeFile(wb, 'course_groups_report.xlsx');
   };
 
+  // Calculate active and inactive groups based on current date
+  const currentDate = new Date();
+  const activeGroupsCount = groups.filter((group) => {
+    const endDate = new Date(group.endDate);
+    // Active if end date is in the future (includes current and future groups)
+    return currentDate <= endDate;
+  }).length;
+  const inactiveGroupsCount = groups.length - activeGroupsCount;
+
   return (
     <div className="container py-2">
+      <LoadingOverlay show={loading.getGroups} />
       <div className="d-flex justify-content-end align-items-center mb-4 flex-wrap">
         <h3 className="me-auto">{selectedCourse?.title || ''} Course</h3>
         {/* Action Buttons */}
@@ -167,6 +191,35 @@ export default function CourseGroups() {
           </Button>
         </div>
       </div>
+
+      {/* Statistics Cards */}
+      <div className="row mb-4">
+        <div className="col-md-4">
+          <Card className={styles.statCard}>
+            <Card.Body>
+              <h6 className="text-muted">Total Groups</h6>
+              <h2>{groups.length}</h2>
+            </Card.Body>
+          </Card>
+        </div>
+        <div className="col-md-4">
+          <Card className={`${styles.statCard} ${styles.active}`}>
+            <Card.Body>
+              <h6 className="text-muted">Active Groups</h6>
+              <h2 className="text-success">{activeGroupsCount}</h2>
+            </Card.Body>
+          </Card>
+        </div>
+        <div className="col-md-4">
+          <Card className={`${styles.statCard} ${styles.inactive}`}>
+            <Card.Body>
+              <h6 className="text-muted">Inactive Groups</h6>
+              <h2 className="text-secondary">{inactiveGroupsCount}</h2>
+            </Card.Body>
+          </Card>
+        </div>
+      </div>
+
       <div className="d-flex justify-content-between align-items-center mb-3">
         <Filters
           filters={filters}
@@ -214,7 +267,8 @@ export default function CourseGroups() {
             component: (data) => {
               const now = new Date();
               const end = new Date(data.endDate);
-              return end > now ? (
+              // Active if end date is in the future
+              return end >= now ? (
                 <Badge bg="success">Active</Badge>
               ) : (
                 <Badge bg="secondary">Inactive</Badge>
@@ -222,6 +276,26 @@ export default function CourseGroups() {
             },
           },
         ]}
+        customActions={(data) => (
+          <i
+            className="fa fa-tasks"
+            style={{
+              cursor: 'pointer',
+              color: '#1f1f2e',
+              margin: '5px',
+              transition: 'color 0.2s',
+            }}
+            onMouseEnter={(e) => (e.target.style.color = '#83c7d0')}
+            onMouseLeave={(e) => (e.target.style.color = '#1f1f2e')}
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(
+                `/dashboard/manage-courses/${courseId}/group-modules/${data._id}`
+              );
+            }}
+            title="Manage Modules"
+          />
+        )}
         onEdit={openEditModal}
         onDelete={(data) => {
           setShowDeleteModal(true);
@@ -254,10 +328,10 @@ export default function CourseGroups() {
         loading={loading?.deleteGroup}
         onCancel={() => setShowDeleteModal(false)}
         onConfirm={() => {
-          dispatch(deleteGroup(group._id))
+          dispatch(deleteGroup({ courseId, groupId: group._id }))
             .unwrap()
             .then(() => {
-              dispatch(getGroups());
+              dispatch(getGroups(courseId));
               setShowDeleteModal(false);
             });
         }}

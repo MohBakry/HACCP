@@ -4,15 +4,14 @@ import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../../Redux/auth/user.service';
-import { setRole } from '../../../Redux/auth/user.store';
-import TextInput from '../../../shared/formComponents/textInput';
+import { login } from '../../../Redux/auth/auth.service';
+import TextInput from '../../../shared/formComponents/TextInput';
 import PasswordInput from '../../../shared/formComponents/passwordInput';
 
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.user);
+  const { loading } = useSelector((state) => state.auth);
   const location = useLocation();
   const currentPath = location.pathname;
   const [isDashboard, setIsDashboard] = React.useState(false);
@@ -53,30 +52,12 @@ export default function Login() {
           default:
             break;
         }
-        // if (currentPath.includes('dashboard')) {
-        //   if (values.email.toLowerCase().includes('instructor')) {
-        //     dispatch(setRole('instructor'));
-        //     navigate('/dashboard/instructor-courses');
-        //     return;
-        //   } else {
-        //     dispatch(setRole('admin'));
-        //     navigate('/dashboard/manage-courses');
-        //   }
-        // } else {
-        //   dispatch(setRole('student'));
-        //   navigate('/my-courses');
-        // }
       });
   }
   const initialValues = {
     email: '',
     password: '',
   };
-
-  // const formik = useFormik({
-  //   onSubmit: submitForm,
-  //   validationSchema,
-  // });
 
   return (
     <div
@@ -90,15 +71,7 @@ export default function Login() {
           onSubmit={submitForm}
           validationSchema={validationSchema}
         >
-          {({
-            values,
-            errors,
-            touched,
-            isValid,
-            dirty,
-            handleChange,
-            handleBlur,
-          }) => (
+          {({ values, isValid, dirty, handleChange, handleBlur }) => (
             <Form>
               <TextInput
                 label={'Email'}

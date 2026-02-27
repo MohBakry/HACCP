@@ -5,14 +5,20 @@ import ModuleVideoUpload from './moduleVideoUpload';
 import MaterialsTab from './material/materialsTab';
 import AssessmentsTab from './assessment/assessmentTab';
 
-const ModuleItem = ({ module, eventKey }) => {
+const ModuleItem = ({ module, eventKey, onEditModule }) => {
   return (
     <Accordion.Item eventKey={eventKey + 1}>
       <Accordion.Header>
-        <ModuleHeader module={module} />
+        <ModuleHeader module={module} onEditModule={onEditModule} />
       </Accordion.Header>
 
       <Accordion.Body>
+        {module?.content && (
+          <div className="container py-3">
+            {/* <h5 className="mt-2">Module Content</h5> */}
+            <div dangerouslySetInnerHTML={{ __html: module.content }} />
+          </div>
+        )}
         <Tabs className="mt-3">
           <Tab eventKey="video" title="Video">
             <div className="py-4">

@@ -1,63 +1,82 @@
 .socicon {
-      color: #5AB1C6;
-      font-size: 22px;
+  color: #5ab1c6;
+  font-size: 22px;
 }
 
 .login {
-      color: white;
+  color: white;
 }
 
-.logoSub{
-      display: none;
+.logoSub {
+  display: none;
 }
 .links {
-      color: white;
-      width: 100%;
-      font-size: 20px;
+  color: white;
+  width: 100%;
+  font-size: 20px;
 }
 @media (max-width: 1180px) {
-      .links {
-          font-size: 16px;
-          text-align: center;
-      }
-      .socicon{
-            font-size: 20px;
-      }
-      .logos{
-            display: none; 
-           }
-      .logoSub{
-            display: flex;
-            justify-content: center;
-      }
-    
+  .links {
+    font-size: 16px;
+    text-align: center;
   }
- 
-  
-.activLink{
-      font-weight: 400;
-      color: #5AB1C6;
-      font-size: 20px;
+  .socicon {
+    font-size: 20px;
+  }
+  .logos {
+    display: none;
+  }
+  .logoSub {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.activLink {
+  font-weight: 400;
+  color: #5ab1c6;
+  font-size: 20px;
 }
 
 .navround {
-      border-radius: 0 0 0 15px;
-      background-color: #012F5A;
+  border-radius: 0 0 0 15px;
+  background-color: #012f5a;
 }
 
 .social {
-      font-size: 20px;
-      background-color: #5AB1C6;
+  font-size: 20px;
+  background-color: #5ab1c6;
 }
 
 .socialround {
-      border-radius: 0 0 50px 15px;
+  border-radius: 0 0 50px 15px;
 }
 
 .mainBg {
-      background-color: #012F5A;
+  background-color: #012f5a;
 }
 
 .secBg {
-      background-color: #5AB1C6 !important;
+  background-color: #5ab1c6 !important;
+}
+
+.dropdownMenu {
+  background-color: white !important;
+  border: 1px solid #012f5a !important;
+  border-radius: 8px !important;
+  min-width: 200px;
+}
+
+.dropdownMenu :global(.dropdown-item) {
+  color: #012f5a !important;
+  transition: all 0.3s ease;
+}
+
+.dropdownMenu :global(.dropdown-item:hover) {
+  background-color: #012f5a !important;
+  color: white !important;
+}
+
+.dropdownMenu :global(.dropdown-divider) {
+  border-color: #012f5a !important;
 }

@@ -1,28 +1,39 @@
-"use client";
+'use client';
 
-import React from "react";
-import { useLocation } from "react-router-dom";
-import logo from "../../../assets/images/logo-color.png";
-import logoW from "../../../assets/images/logo-white.png";
-import "bootstrap/dist/js/bootstrap.bundle.js";
-import style from "./styles.module.css";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import logo from '../../../assets/images/logo-color.png';
+import logoW from '../../../assets/images/logo-white.png';
+import 'bootstrap/dist/js/bootstrap.bundle.js';
+import style from './styles.module.css';
+import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { Dropdown } from 'react-bootstrap';
+import { logout } from '../../../Redux/auth/auth.store';
 
 export default function Navbar() {
   const location = useLocation();
-  const { user } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
   const pathname = location.pathname;
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    setShowDropdown(false);
+    navigate('/login');
+  };
   const links = [
-    { path: "/", link: "Home" },
-    { path: "/aboutUs", link: "About Us" },
-    { path: "/courses", link: "Courses" },
-    { path: "/consultation", link: "Consultation" },
-    { path: "/directory", link: "Directory" },
-    { path: "/events", link: "Events" },
-    { path: "/podcast", link: "Podcast" },
-    { path: "/news", link: "News" },
-    { path: "/contactUs", link: "Contact Us" },
+    { path: '/', link: 'Home' },
+    { path: '/aboutUs', link: 'About Us' },
+    { path: '/courses', link: 'Courses' },
+    { path: '/consultation', link: 'Consultation' },
+    { path: '/directory', link: 'Directory' },
+    { path: '/events', link: 'Events' },
+    { path: '/podcast', link: 'Podcast' },
+    { path: '/news', link: 'News' },
+    { path: '/contactUs', link: 'Contact Us' },
   ];
   return (
     <>
@@ -33,7 +44,7 @@ export default function Navbar() {
               <img
                 className={`${style.logos}   mx-3`}
                 src={logo}
-                style={{ width: "200px", height: "100px" }}
+                style={{ width: '200px', height: '100px' }}
                 alt="HACCP"
               />
             </Link>
@@ -80,7 +91,53 @@ export default function Navbar() {
                   className={`${style.socicon} login mx-auto align-items-center d-flex`}
                 >
                   {user ? (
-                    <span className="text-white pe-1 ">{user.name}</span>
+                    <Dropdown
+                      show={showDropdown}
+                      onToggle={() => setShowDropdown(!showDropdown)}
+                    >
+                      <Dropdown.Toggle
+                        variant="link"
+                        className="text-white text-decoration-none d-flex align-items-center"
+                        style={{ fontSize: '16px' }}
+                      >
+                        <i className="fa-solid fa-user text-white mx-2"></i>
+                        <span className="text-white">{user.name}</span>
+                      </Dropdown.Toggle>
+
+                      <Dropdown.Menu className={style.dropdownMenu}>
+                        <Dropdown.Item
+                          onClick={() => {
+                            navigate('/profile/my-courses');
+                            setShowDropdown(false);
+                          }}
+                        >
+                          <i className="fa-solid fa-book me-2"></i>My Courses
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() => {
+                            navigate('/profile/diplomas');
+                            setShowDropdown(false);
+                          }}
+                        >
+                          <i className="fa-solid fa-certificate me-2"></i>My
+                          Diplomas
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() => {
+                            navigate('/profile');
+                            setShowDropdown(false);
+                          }}
+                        >
+                          <i className="fa-solid fa-user-circle me-2"></i>My
+                          Profile
+                        </Dropdown.Item>
+                        <Dropdown.Divider />
+                        <Dropdown.Item onClick={handleLogout}>
+                          <i className="fa-solid fa-sign-out-alt me-2"></i>
+                          Logout
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                   ) : (
                     <Link className="text-decoration-none" to="/login">
                       <i className="fa-solid fa-user text-white mx-2"></i>

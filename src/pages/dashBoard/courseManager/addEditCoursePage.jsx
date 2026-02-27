@@ -4,11 +4,12 @@ import * as Yup from 'yup';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import TextInput from '../../../shared/formComponents/TextInput';
-import NumberInput from '../../../shared/formComponents/NumberInput';
+import NumberInput from '../../../shared/formComponents/numberInput';
 import FileInput from '../../../shared/formComponents/FileInput';
 import RichTextInput from '../../../shared/formComponents/richTextInput';
 import SwitchInput from '../../../shared/formComponents/switchInput';
 import SelectInput from '../../../shared/formComponents/selectInput';
+import { useToast } from '../../../shared/toast/useToast';
 import {
   addCourse,
   updateCourse,
@@ -16,11 +17,13 @@ import {
   getCourses,
 } from '../../../Redux/courses/courses.service';
 import { useDispatch, useSelector } from 'react-redux';
+import { hideLoading, showLoading } from '../../../Redux/root/root.store';
 
 const AddEditCoursePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
+  const { showSuccess, showError } = useToast();
+  const { user } = useSelector((state) => state.auth);
   const { courses } = useSelector((state) => state.courses);
   const { courseId } = useParams(); // Get courseId from URL params
 
@@ -81,7 +84,7 @@ const AddEditCoursePage = () => {
   // const [videoId, setVideoId] = useState(null);
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     console.log('Course Payload:', values);
-
+    dispatch(showLoading());
     try {
       setSubmitting(true);
 
@@ -126,48 +129,19 @@ const AddEditCoursePage = () => {
         ).unwrap();
       }
 
-      alert(`Course ${isEditing ? 'updated' : 'created'} successfully`);
+      showSuccess(`Course ${isEditing ? 'updated' : 'created'} successfully`);
       if (!isEditing) resetForm();
       navigate('/dashboard/manage-courses');
     } catch (err) {
-      alert(err?.message || 'Something went wrong');
+      console.error(err);
+      showError(
+        `Failed to ${isEditing ? 'update' : 'create'} course: ${err.message || err}`
+      );
     } finally {
       setSubmitting(false);
+      dispatch(hideLoading());
     }
   };
-
-  // const uploadVideo = async (file) => {
-  //   console.log('Uploading video file:', file);
-
-  //   // 1️⃣ Get upload URL from backend
-  //   const res = await axiosClient.post('/courses/intro-video-upload-url');
-
-  //   const { uploadURL, videoId } = res.data;
-
-  //   // 2️⃣ Upload video to Cloudflare
-  //   const formData = new FormData();
-  //   formData.append('file', file);
-
-  //   const xhr = new XMLHttpRequest();
-  //   xhr.open('POST', uploadURL);
-
-  //   xhr.upload.onprogress = (e) => {
-  //     if (e.lengthComputable) {
-  //       setProgress(Math.round((e.loaded / e.total) * 100));
-  //     }
-  //   };
-
-  //   xhr.onload = () => {
-  //     console.log('Upload completed');
-  //     setVideoId(videoId);
-  //   };
-
-  //   xhr.onerror = () => {
-  //     console.error('Video upload failed');
-  //   };
-
-  //   xhr.send(formData);
-  // };
 
   return (
     <div className="container">
@@ -222,13 +196,6 @@ const AddEditCoursePage = () => {
               />
             )}
 
-            {/* Intro Video */}
-            <TextInput
-              name="introVideo"
-              label="Intro Video URL"
-              placeholder="https://..."
-            />
-
             {/* Rich Description */}
             <RichTextInput
               name="description"
@@ -241,14 +208,6 @@ const AddEditCoursePage = () => {
 
             {/* Price */}
             <NumberInput name="price" label="Price" />
-
-            {/* OR Upload Intro Video
-            <FileInput
-              name="introVideoFile"
-              label="Upload Intro Video"
-              accept="video/*"
-              onChange={(file) => uploadVideo(file)}
-            /> */}
 
             {/* Actions */}
             <div className="d-flex justify-content-end gap-2 mt-4">

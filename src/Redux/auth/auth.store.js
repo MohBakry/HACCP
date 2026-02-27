@@ -1,6 +1,6 @@
 // redux/userSlice.js
 import { createSlice } from '@reduxjs/toolkit';
-import { login, register } from './user.service';
+import { login, register } from './auth.service';
 
 const initialState = {
   token: localStorage.getItem('token') || null,
@@ -10,8 +10,8 @@ const initialState = {
   role: null,
 };
 
-const userSlice = createSlice({
-  name: 'user',
+const authSlice = createSlice({
+  name: 'auth',
   initialState,
   reducers: {
     setUserToken: (state, action) => {
@@ -64,5 +64,5 @@ const userSlice = createSlice({
 });
 
 export const { setUserToken, clearUserToken, logout, setRole } =
-  userSlice.actions;
-export let userReducer = userSlice.reducer;
+  authSlice.actions;
+export let authReducer = authSlice.reducer;

@@ -1,0 +1,18 @@
+.description {
+  font-size: 0.9rem;
+  max-height: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
+
+.summaryCard {
+  position: sticky;
+  top: 20px;
+}
+
+.summaryCard .card-body {
+  padding: 1.5rem;
+}

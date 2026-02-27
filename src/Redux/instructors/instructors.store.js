@@ -5,7 +5,7 @@ import {
   deleteInstructor,
   getInstructorCourses,
   getInstructors,
-} from './users.service';
+} from './instructors.service';
 
 const initialState = {
   instructors: [],
@@ -24,8 +24,8 @@ const initialState = {
   },
 };
 
-const usersSlice = createSlice({
-  name: 'users',
+const instructorsSlice = createSlice({
+  name: 'instructors',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -81,4 +81,4 @@ const usersSlice = createSlice({
 });
 
 // export const {} = usersSlice.actions;
-export let usersReducer = usersSlice.reducer;
+export let instructorsReducer = instructorsSlice.reducer;

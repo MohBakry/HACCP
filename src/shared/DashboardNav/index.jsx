@@ -3,11 +3,11 @@ import { Link, NavLink } from 'react-router-dom';
 import styles from './styles.module.css';
 import logoW from '../../assets/images/logo-white.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../Redux/auth/user.store';
-import Instructors from '../../pages/dashBoard/instructors';
+import { logout } from '../../Redux/auth/auth.store';
+import Instructors from '../../pages/dashboard/instructors';
 
 export default function DashboardSidebar() {
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const links = {
     student: [
@@ -48,22 +48,37 @@ export default function DashboardSidebar() {
       {
         path: '/dashboard/manage-courses',
         link: 'Manage Courses',
-        icon: <i className="fas fa-tachometer-alt me-2"></i>,
+        icon: <i class="fa-solid fa-lines-leaning me-2"></i>,
       },
-      {
-        path: '/dashboard/current-courses',
-        link: 'Current Courses',
-        icon: <i className="fas fa-tachometer-alt me-2"></i>,
-      },
-      {
-        path: '/dashboard/completed-courses',
-        link: 'Completed Courses',
-        icon: <i className="fas fa-tachometer-alt me-2"></i>,
-      },
+      // {
+      //   path: '/dashboard/current-courses',
+      //   link: 'Current Courses',
+      //   icon: <i className="fas fa-tachometer-alt me-2"></i>,
+      // },
+      // {
+      //   path: '/dashboard/completed-courses',
+      //   link: 'Completed Courses',
+      //   icon: <i className="fas fa-tachometer-alt me-2"></i>,
+      // },
       {
         path: '/dashboard/instructors',
         link: 'Instructors',
-        icon: <i className="fas fa-tachometer-alt me-2"></i>,
+        icon: <i class="fa-solid fa-person-chalkboard me-2"></i>,
+      },
+      {
+        path: '/dashboard/course-tracks',
+        link: 'Course Tracks',
+        icon: <i className="fas fa-route me-2"></i>,
+      },
+      {
+        path: '/dashboard/manage-events',
+        link: 'Manage Events',
+        icon: <i className="fas fa-calendar-alt me-2"></i>,
+      },
+      {
+        path: '/dashboard/manage-news',
+        link: 'Manage News',
+        icon: <i className="fas fa-newspaper me-2"></i>,
       },
     ],
     instructor: [
@@ -96,7 +111,7 @@ export default function DashboardSidebar() {
               }
             >
               <div className="d-flex">
-                <div className="d-flex justify-center pt-2">{item.icon}</div>
+                <div className="d-flex justify-center pt-1">{item.icon}</div>
                 <div className="d-flex word-wrap">{item.link}</div>
               </div>
             </NavLink>

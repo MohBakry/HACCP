@@ -67,9 +67,9 @@ const RichTextInput = ({ name, label, required, readOnly = false }) => {
 
   if (!editor) return null;
 
-  const currentHeadingLabel = editorState.headingLevel
-    ? `H${editorState.headingLevel}`
-    : '';
+  // const currentHeadingLabel = editorState.headingLevel
+  //   ? `H${editorState.headingLevel}`
+  //   : '';
 
   return (
     <div className="mb-3">

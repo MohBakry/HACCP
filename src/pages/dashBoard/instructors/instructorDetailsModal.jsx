@@ -2,7 +2,7 @@ import { Modal, Accordion, Badge, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
 export const InstructorCoursesModal = ({ showModal, setShowModal, data }) => {
-  const { loading } = useSelector((state) => state.users);
+  const { loading } = useSelector((state) => state.instructors);
   return (
     <Modal
       show={showModal}

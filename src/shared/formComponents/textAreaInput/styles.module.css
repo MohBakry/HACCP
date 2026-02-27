@@ -1,0 +1,29 @@
+.formGroup {
+  position: relative;
+}
+
+.label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.required::after {
+  content: ' *';
+  color: red;
+}
+
+.input {
+  width: 100%;
+  resize: vertical;
+}
+
+.input:focus {
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.error {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc3545;
+}

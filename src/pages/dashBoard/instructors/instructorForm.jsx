@@ -8,7 +8,7 @@ import {
   addInstructor,
   getInstructors,
   updateInstructor,
-} from '../../../Redux/users/users.service';
+} from '../../../Redux/instructors/instructors.service';
 import { fileToBase64 } from '../../../shared/utils';
 
 export const InstructorForm = ({ instructor, showModal, setShowModal }) => {

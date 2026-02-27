@@ -1,8 +1,16 @@
 .table {
   margin-top: 30px !important;
+  width: 100%;
+  table-layout: auto;
+}
+.table th,
+.table td {
+  white-space: normal;
+  word-wrap: break-word;
 }
 .tableActions {
   gap: 0.5rem;
+  white-space: nowrap;
 }
 .th {
   background-color: #1f1f2e;

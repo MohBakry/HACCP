@@ -7,7 +7,7 @@ export const GroupDetailsModal = ({
   data,
   course,
 }) => {
-  const { instructors } = useSelector((state) => state.users);
+  const { instructors } = useSelector((state) => state.instructors);
 
   //   const course = courses.find((c) => c._id === course.id);
   const instructor = instructors.find((i) => i._id === data.instructorId?._id);

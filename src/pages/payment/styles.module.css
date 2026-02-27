@@ -1,0 +1,8 @@
+.summaryCard {
+  position: sticky;
+  top: 20px;
+}
+
+.summaryCard .card-body {
+  padding: 1.5rem;
+}

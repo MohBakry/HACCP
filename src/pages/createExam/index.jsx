@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function CreateExam() {
   const { examId } = useParams();
 
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState({
-    question: "",
-    options: ["", "", "", ""],
+    question: '',
+    options: ['', '', '', ''],
     correctIndex: 0,
   });
   const [passPercentage, setPassPercentage] = useState(50);
@@ -16,15 +16,15 @@ export default function CreateExam() {
   const [showCourseModal, setShowCourseModal] = useState(false);
 
   const courses = [
-    { id: "course1", name: "React Basics" },
-    { id: "course2", name: "Advanced JavaScript" },
-    { id: "course3", name: "CSS Masterclass" },
+    { id: 'course1', name: 'React Basics' },
+    { id: 'course2', name: 'Advanced JavaScript' },
+    { id: 'course3', name: 'CSS Masterclass' },
   ];
 
   // Load existing exam if editing
   useEffect(() => {
     if (examId) {
-      const savedExams = JSON.parse(localStorage.getItem("exams")) || [];
+      const savedExams = JSON.parse(localStorage.getItem('exams')) || [];
       const exam = savedExams.find((e) => e.id.toString() === examId);
       if (exam) {
         setQuestions(exam.questions);
@@ -47,23 +47,23 @@ export default function CreateExam() {
     ) {
       setQuestions([...questions, currentQuestion]);
       setCurrentQuestion({
-        question: "",
-        options: ["", "", "", ""],
+        question: '',
+        options: ['', '', '', ''],
         correctIndex: 0,
       });
     } else {
-      alert("Please fill in the question and all options.");
+      alert('Please fill in the question and all options.');
     }
   };
 
   const handleSaveExam = () => {
     if (!selectedCourse) {
-      alert("Please select a course!");
+      alert('Please select a course!');
       return;
     }
 
     if (questions.length === 0) {
-      alert("Add at least one question.");
+      alert('Add at least one question.');
       return;
     }
 
@@ -74,35 +74,32 @@ export default function CreateExam() {
       passPercentage,
     };
 
-    const savedExams =
-      JSON.parse(localStorage.getItem("exams")) || [];
+    const savedExams = JSON.parse(localStorage.getItem('exams')) || [];
 
     if (examId) {
       // Edit mode: replace old exam
       const updatedExams = savedExams.map((e) =>
         e.id.toString() === examId ? newExam : e
       );
-      localStorage.setItem("exams", JSON.stringify(updatedExams));
+      localStorage.setItem('exams', JSON.stringify(updatedExams));
     } else {
       // Create mode: add new exam
       savedExams.push(newExam);
-      localStorage.setItem("exams", JSON.stringify(savedExams));
+      localStorage.setItem('exams', JSON.stringify(savedExams));
     }
 
-    alert("✅ Exam saved!");
+    alert('✅ Exam saved!');
   };
 
   return (
     <div className="container my-5">
-      <h2>📚 {examId ? "Edit Exam" : "Create New Exam"}</h2>
+      <h2>📚 {examId ? 'Edit Exam' : 'Create New Exam'}</h2>
 
       <button
         className="btn btn-secondary mb-3"
         onClick={() => setShowCourseModal(true)}
       >
-        {selectedCourse
-          ? `Course: ${selectedCourse.name}`
-          : "Select Course"}
+        {selectedCourse ? `Course: ${selectedCourse.name}` : 'Select Course'}
       </button>
 
       <div className="mb-4">
@@ -191,7 +188,7 @@ export default function CreateExam() {
         <div
           className="modal fade show d-block"
           tabIndex="-1"
-          style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+          style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
         >
           <div className="modal-dialog">
             <div className="modal-content">

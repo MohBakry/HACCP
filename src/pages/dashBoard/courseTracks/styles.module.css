@@ -1,0 +1,30 @@
+.addButton {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.addButton:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.iconColor {
+  color: #6c757d;
+}
+
+.courseItem {
+  padding: 8px;
+  border-radius: 4px;
+  background-color: #f8f9fa;
+  margin-bottom: 8px;
+}
+
+.courseItem:hover {
+  background-color: #e9ecef;
+}

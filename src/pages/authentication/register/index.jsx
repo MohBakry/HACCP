@@ -5,12 +5,12 @@ import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { register } from '../../../Redux/auth/user.service';
+import { register } from '../../../Redux/auth/auth.service';
 
 export default function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { error, loading } = useSelector((state) => state.user);
+  const { error, loading } = useSelector((state) => state.auth);
 
   const users = {
     name: '',

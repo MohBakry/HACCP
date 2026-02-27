@@ -5,12 +5,12 @@ import * as Yup from 'yup';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PasswordInput from '../../../shared/formComponents/passwordInput';
-import { resetPassword } from '../../../Redux/auth/user.service';
+import { resetPassword } from '../../../Redux/auth/auth.service';
 
 export default function ResetPassword() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, error } = useSelector((state) => state.user);
+  const { loading, error } = useSelector((state) => state.auth);
   const [searchParams] = useSearchParams();
 
   const token = searchParams.get('token');

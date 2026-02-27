@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Badge } from 'react-bootstrap';
-import jsPDF from 'jspdf';
 import * as XLSX from 'xlsx';
 import styles from './styles.module.css';
 import Filters from '../../../shared/filters/Filters';
@@ -11,14 +10,14 @@ import {
   deleteInstructor,
   getInstructorCourses,
   getInstructors,
-} from '../../../Redux/users/users.service';
+} from '../../../Redux/instructors/instructors.service';
 import DeleteConfirmModal from '../../../shared/deleteConfirmation/DeleteConfirmationModal';
 import { InstructorCoursesModal } from './instructorDetailsModal';
 
-const fallbackImage = 'https://via.placeholder.com/80';
+// const fallbackImage = 'https://via.placeholder.com/80';
 
 export default function Instructors() {
-  const [courses, setCourses] = useState([]);
+  const courses = [];
   const [showModal, setShowModal] = useState(false);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -27,7 +26,7 @@ export default function Instructors() {
     status: '',
   });
   const { instructors, selectedInstructor, loading } = useSelector(
-    (state) => state.users
+    (state) => state.instructors
   );
 
   const dispatch = useDispatch();
@@ -64,7 +63,7 @@ export default function Instructors() {
 
   useEffect(() => {
     dispatch(getInstructors());
-  }, []);
+  }, [dispatch]);
 
   const openAddModal = () => {
     setInstructor({

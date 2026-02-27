@@ -1,27 +1,30 @@
 import { useState, useEffect } from 'react';
 import * as Yup from 'yup';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Spinner } from 'react-bootstrap';
 import { Form, Formik } from 'formik';
 import SelectInput from '../../../shared/formComponents/selectInput';
 import TextInput from '../../../shared/formComponents/TextInput';
-import NumberInput from '../../../shared/formComponents/NumberInput';
+import NumberInput from '../../../shared/formComponents/numberInput';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   addGroup,
-  getCourses,
   getGroups,
   updateGroup,
-} from '../../../Redux/courses/courses.service';
+} from '../../../Redux/courseGroups/courseGroups.service';
+import { getCourses } from '../../../Redux/courses/courses.service';
 
 export const GroupForm = ({ group, showModal, setShowModal, courseId }) => {
   const [isEditing, setIsEditing] = useState(false);
   const dispatch = useDispatch();
   const { courses } = useSelector((state) => state.courses);
-  const { instructors } = useSelector((state) => state.users);
+  const { instructors } = useSelector((state) => state.instructors);
+  const { loading } = useSelector((state) => state.courseGroups);
 
   useEffect(() => {
     if (group._id) {
       setIsEditing(true);
+    } else {
+      setIsEditing(false);
     }
   }, [group]);
 
@@ -32,7 +35,7 @@ export const GroupForm = ({ group, showModal, setShowModal, courseId }) => {
   }, [courses, dispatch]);
 
   const validationSchema = Yup.object({
-    name: Yup.string().required('Group name is required'),
+    name: Yup.string(),
     courseId: Yup.string().required('Course is required'),
     instructorId: Yup.string().required('Instructor is required'),
     startDate: Yup.date().required('Start date is required'),
@@ -43,11 +46,11 @@ export const GroupForm = ({ group, showModal, setShowModal, courseId }) => {
   });
 
   const initialValues = {
-    courseId: group?.courseId || '',
-    instructorId: group?.instructorId || '',
-    startDate: group?.startDate || '',
-    endDate: group?.endDate || '',
-    discount: group?.discount || 0,
+    courseId: group?.courseId || courseId || '',
+    instructorId: group?.instructorId?._id || group?.instructorId || '',
+    startDate: group?.startDate ? group.startDate.split('T')[0] : '',
+    endDate: group?.endDate ? group.endDate.split('T')[0] : '',
+    discount: group?.discount ?? 0,
     name: group?.name || '',
   };
 
@@ -97,7 +100,6 @@ export const GroupForm = ({ group, showModal, setShowModal, courseId }) => {
                 label="Group Name"
                 placeholder="Enter group name"
                 name="name"
-                required
               />
               <SelectInput
                 label="Course"
@@ -136,16 +138,38 @@ export const GroupForm = ({ group, showModal, setShowModal, courseId }) => {
             </Modal.Body>
 
             <Modal.Footer>
-              <Button variant="secondary" onClick={() => setShowModal(false)}>
+              <Button
+                variant="secondary"
+                onClick={() => setShowModal(false)}
+                disabled={loading.addGroup || loading.updateGroup}
+              >
                 Cancel
               </Button>
 
               <Button
                 variant="success"
                 type="submit"
-                disabled={!(isValid && dirty)}
+                disabled={
+                  !(isValid && dirty) || loading.addGroup || loading.updateGroup
+                }
               >
-                {isEditing ? 'Save Changes' : 'Add Group'}
+                {loading.addGroup || loading.updateGroup ? (
+                  <>
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      className="me-2"
+                    />
+                    {isEditing ? 'Saving...' : 'Adding...'}
+                  </>
+                ) : isEditing ? (
+                  'Save Changes'
+                ) : (
+                  'Add Group'
+                )}
               </Button>
             </Modal.Footer>
           </Form>
