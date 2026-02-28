@@ -4,6 +4,42 @@
   margin-bottom: 1rem;
 }
 
+.enrolledBadge {
+  background-color: #198754;
+  font-size: 1rem;
+}
+
+.progressSummary {
+  margin-top: 1rem;
+  background: #f8fbff;
+  border: 1px solid #d9e8f5;
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+}
+
+.progressHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  color: #012f5a;
+}
+
+.progressBarWrap {
+  width: 100%;
+  background: #e9ecef;
+  border-radius: 999px;
+  overflow: hidden;
+  height: 10px;
+  margin-bottom: 0.5rem;
+}
+
+.progressBar {
+  height: 100%;
+  background: linear-gradient(90deg, #012f5a 0%, #83c7d0 100%);
+  transition: width 0.35s ease;
+}
+
 .coursePath {
   position: relative;
 }
@@ -86,8 +122,28 @@
 .courseMeta {
   display: flex;
   gap: 1.5rem;
+  flex-wrap: wrap;
   color: #6c757d;
   font-size: 0.9rem;
+}
+
+.courseStatus {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.completedStatus {
+  background: #d1f3df;
+  color: #0f5132;
+}
+
+.pendingStatus {
+  background: #fff3cd;
+  color: #664d03;
 }
 
 .expandIcon {

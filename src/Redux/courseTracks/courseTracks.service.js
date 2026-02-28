@@ -100,3 +100,77 @@ export const getPublishedCourseTrackDetails = createAsyncThunk(
     }
   }
 );
+
+export const enrollInCourseTrack = createAsyncThunk(
+  'courseTracks/enroll',
+  async ({ trackId }, thunkAPI) => {
+    try {
+      const res = await axiosClient.post('course-tracks/enroll', { trackId });
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || 'Failed to enroll in course track'
+      );
+    }
+  }
+);
+
+export const getMyTrackEnrollments = createAsyncThunk(
+  'courseTracks/get-my-enrollments',
+  async (_, thunkAPI) => {
+    try {
+      const res = await axiosClient.get('course-tracks/my-enrollments');
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || 'Failed to fetch track enrollments'
+      );
+    }
+  }
+);
+
+export const getTrackProgress = createAsyncThunk(
+  'courseTracks/get-track-progress',
+  async (trackId, thunkAPI) => {
+    try {
+      const res = await axiosClient.get(`course-tracks/${trackId}/progress`);
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || 'Failed to fetch track progress'
+      );
+    }
+  }
+);
+
+export const checkTrackCompletion = createAsyncThunk(
+  'courseTracks/check-track-completion',
+  async (trackId, thunkAPI) => {
+    try {
+      const res = await axiosClient.get(
+        `course-tracks/${trackId}/check-completion`
+      );
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || 'Failed to check track completion'
+      );
+    }
+  }
+);
+
+export const updateTrackProgressByCourse = createAsyncThunk(
+  'courseTracks/update-progress-by-course',
+  async ({ courseId }, thunkAPI) => {
+    try {
+      const res = await axiosClient.put('course-tracks/update-progress', {
+        courseId,
+      });
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || 'Failed to update track progress'
+      );
+    }
+  }
+);

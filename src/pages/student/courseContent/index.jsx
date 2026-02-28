@@ -304,7 +304,7 @@ export default function StudentCourseContent() {
   return (
     <div>
       <Header
-        img={courseContent.course?.imageUrl}
+        img={courseContent?.courseImageUrl}
         title={courseContent.courseTitle || 'Course Content'}
       />
 

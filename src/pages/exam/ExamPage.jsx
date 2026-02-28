@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,6 +14,7 @@ import {
   getExamAttemptByGroupAndCourse,
   submitExamAttempt,
 } from '../../Redux/examAttempts/examAttempts.service';
+import { updateTrackProgressByCourse } from '../../Redux/courseTracks/courseTracks.service';
 import {
   setCurrentAttempt,
   setAnswer,
@@ -56,6 +57,19 @@ export default function ExamPage() {
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [unsubmittedChanges, setUnsubmittedChanges] = useState(false);
+
+  const syncTrackProgressIfPassed = useCallback(
+    async (result) => {
+      if (!result?.passed || !courseId) return;
+
+      try {
+        await dispatch(updateTrackProgressByCourse({ courseId })).unwrap();
+      } catch {
+        // Intentionally non-blocking for exam result flow
+      }
+    },
+    [dispatch, courseId]
+  );
 
   // Initial load - check if exam and attempt exist
   useEffect(() => {
@@ -146,6 +160,8 @@ export default function ExamPage() {
             })
           ).unwrap();
 
+          await syncTrackProgressIfPassed(result);
+
           setExamResult(result);
           setStage('results');
           dispatch(clearCurrentAttempt());
@@ -173,8 +189,11 @@ export default function ExamPage() {
     stage,
     currentAttempt,
     dispatch,
+    courseId,
+    groupId,
     answers,
     isSubmitting,
+    syncTrackProgressIfPassed,
     exam?.durationInMinutes,
   ]);
   // Auto-save answers locally
@@ -361,6 +380,8 @@ export default function ExamPage() {
           answers: answers, // answers is already in array format { questionId, selectedOptionId }
         })
       ).unwrap();
+
+      await syncTrackProgressIfPassed(result);
 
       setExamResult(result);
       setStage('results');

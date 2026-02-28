@@ -6,22 +6,51 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from './styles.module.css';
 import Header from '../../../shared/header';
 import LoadingSpinner from '../../../shared/LoadingSpinner';
-import { getPublishedCourseDetails } from '../../../Redux/courses/courses.service';
+import {
+  getPublishedCourseDetails,
+  getEnrolledCourses,
+} from '../../../Redux/courses/courses.service';
 
 const CourseDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { courseDetails, loading } = useSelector((state) => state.courses);
+  const { courseDetails, loading, enrolledCourses } = useSelector(
+    (state) => state.courses
+  );
+  const { token } = useSelector((state) => state.auth);
   // const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [showEnrollModal, setShowEnrollModal] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState(null);
+  const [isUserEnrolled, setIsUserEnrolled] = useState(false);
+  const [userEnrollment, setUserEnrollment] = useState(null);
 
   useEffect(() => {
     if (id) {
       dispatch(getPublishedCourseDetails(id));
     }
   }, [id, dispatch]);
+
+  useEffect(() => {
+    if (token) {
+      dispatch(getEnrolledCourses());
+    }
+  }, [dispatch, token]);
+
+  useEffect(() => {
+    if (id && token && Array.isArray(enrolledCourses)) {
+      const enrollment = enrolledCourses.find(
+        (course) => course._id === id || course.courseId === id
+      );
+      if (enrollment) {
+        setIsUserEnrolled(true);
+        setUserEnrollment(enrollment);
+      } else {
+        setIsUserEnrolled(false);
+        setUserEnrollment(null);
+      }
+    }
+  }, [id, token, enrolledCourses]);
 
   // const handlePlayVideo = () => setIsVideoPlaying(true);
 
@@ -161,10 +190,20 @@ const CourseDetails = () => {
                   variant="primary"
                   className="w-100 mb-3"
                   size="lg"
-                  onClick={handleEnrollClick}
+                  onClick={() => {
+                    if (isUserEnrolled && userEnrollment) {
+                      navigate(
+                        `/course-content/${id}/${userEnrollment.enrolledGroups?.[0]?._id || userEnrollment.groupId}`
+                      );
+                    } else {
+                      handleEnrollClick();
+                    }
+                  }}
                 >
-                  <i className="fas fa-graduation-cap me-2"></i>
-                  Enroll Now
+                  <i
+                    className={`fas ${isUserEnrolled ? 'fa-play' : 'fa-graduation-cap'} me-2`}
+                  ></i>
+                  {isUserEnrolled ? 'Go to Course Content' : 'Enroll Now'}
                 </Button>
 
                 <h6 className="mt-4 mb-3">This course includes:</h6>

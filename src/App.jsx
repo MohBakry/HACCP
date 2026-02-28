@@ -55,6 +55,8 @@ import AssessmentSubmissionsManagement from './pages/dashBoard/courseManager/ass
 import ExamPage from './pages/exam/ExamPage';
 import Certificate from './pages/certificate';
 import StudentVerification from './pages/studentVerification';
+import MyDiplomas from './pages/profile/myDiplomas';
+import DiplomaProgressDetails from './pages/profile/myDiplomas/details';
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -158,7 +160,10 @@ function App() {
           <Route path="/diplomas" element={<CourseTracksPage />} />
           <Route path="/consultation" element={<Consultation />} />
           <Route path="/directory" element={<Directory />} />
-          <Route path="/student-verification/:courseId/:studentEmail" element={<StudentVerification />} />
+          <Route
+            path="/student-verification/:courseId/:studentEmail"
+            element={<StudentVerification />}
+          />
           <Route path="/events/details/:id" element={<EventDetails />} />
           <Route path="/events" element={<Events />} />
           <Route path="/podcast" element={<Podcast />} />
@@ -170,6 +175,11 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/set-password" element={<ResetPassword />} />
           <Route path="/profile/my-courses" element={<EnrolledCourses />} />
+          <Route path="/profile/diplomas" element={<MyDiplomas />} />
+          <Route
+            path="/profile/diplomas/:trackId"
+            element={<DiplomaProgressDetails />}
+          />
           <Route
             path="/course-content/:courseId/:groupId"
             element={<StudentCourseContent />}

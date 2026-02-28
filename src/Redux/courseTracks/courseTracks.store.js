@@ -2,12 +2,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
   addCourseTrack,
+  checkTrackCompletion,
   deleteCourseTrack,
+  enrollInCourseTrack,
   getCourseTrackDetails,
   getCourseTracks,
+  getMyTrackEnrollments,
+  getTrackProgress,
   updateCourseTrack,
   getPublishedCourseTracks,
   getPublishedCourseTrackDetails,
+  updateTrackProgressByCourse,
 } from './courseTracks.service';
 
 const initialState = {
@@ -15,6 +20,9 @@ const initialState = {
   publishedCourseTracks: [],
   selectedCourseTrack: null,
   trackDetails: null,
+  myTrackEnrollments: [],
+  currentTrackProgress: null,
+  trackCompletionStatus: null,
   loading: {
     getCourseTracks: false,
     addCourseTrack: false,
@@ -23,6 +31,11 @@ const initialState = {
     deleteCourseTrack: false,
     getPublishedCourseTracks: false,
     getPublishedCourseTrackDetails: false,
+    enrollInCourseTrack: false,
+    getMyTrackEnrollments: false,
+    getTrackProgress: false,
+    checkTrackCompletion: false,
+    updateTrackProgressByCourse: false,
   },
   error: {
     getCourseTracks: '',
@@ -32,6 +45,11 @@ const initialState = {
     deleteCourseTrack: '',
     getPublishedCourseTracks: '',
     getPublishedCourseTrackDetails: '',
+    enrollInCourseTrack: '',
+    getMyTrackEnrollments: '',
+    getTrackProgress: '',
+    checkTrackCompletion: '',
+    updateTrackProgressByCourse: '',
   },
 };
 
@@ -41,6 +59,10 @@ const courseTracksSlice = createSlice({
   reducers: {
     clearSelectedCourseTrack: (state) => {
       state.selectedCourseTrack = null;
+    },
+    clearTrackProgressState: (state) => {
+      state.currentTrackProgress = null;
+      state.trackCompletionStatus = null;
     },
   },
   extraReducers: (builder) => {
@@ -109,7 +131,8 @@ const courseTracksSlice = createSlice({
       })
       .addCase(getPublishedCourseTracks.fulfilled, (state, action) => {
         state.loading.getPublishedCourseTracks = false;
-        state.publishedCourseTracks = action.payload.courseTracks || action.payload;
+        state.publishedCourseTracks =
+          action.payload.courseTracks || action.payload;
       })
       .addCase(getPublishedCourseTracks.rejected, (state, action) => {
         state.loading.getPublishedCourseTracks = false;
@@ -126,9 +149,88 @@ const courseTracksSlice = createSlice({
       .addCase(getPublishedCourseTrackDetails.rejected, (state, action) => {
         state.loading.getPublishedCourseTrackDetails = false;
         state.error.getPublishedCourseTrackDetails = action.payload;
+      })
+      .addCase(enrollInCourseTrack.pending, (state) => {
+        state.loading.enrollInCourseTrack = true;
+        state.error.enrollInCourseTrack = '';
+      })
+      .addCase(enrollInCourseTrack.fulfilled, (state, action) => {
+        state.loading.enrollInCourseTrack = false;
+        state.currentTrackProgress = action.payload?.trackProgress || null;
+      })
+      .addCase(enrollInCourseTrack.rejected, (state, action) => {
+        state.loading.enrollInCourseTrack = false;
+        state.error.enrollInCourseTrack = action.payload;
+      })
+      .addCase(getMyTrackEnrollments.pending, (state) => {
+        state.loading.getMyTrackEnrollments = true;
+        state.error.getMyTrackEnrollments = '';
+      })
+      .addCase(getMyTrackEnrollments.fulfilled, (state, action) => {
+        state.loading.getMyTrackEnrollments = false;
+        state.myTrackEnrollments = Array.isArray(action.payload)
+          ? action.payload
+          : [];
+      })
+      .addCase(getMyTrackEnrollments.rejected, (state, action) => {
+        state.loading.getMyTrackEnrollments = false;
+        state.error.getMyTrackEnrollments = action.payload;
+      })
+      .addCase(getTrackProgress.pending, (state) => {
+        state.loading.getTrackProgress = true;
+        state.error.getTrackProgress = '';
+      })
+      .addCase(getTrackProgress.fulfilled, (state, action) => {
+        state.loading.getTrackProgress = false;
+        state.currentTrackProgress = action.payload;
+      })
+      .addCase(getTrackProgress.rejected, (state, action) => {
+        state.loading.getTrackProgress = false;
+        state.currentTrackProgress = null;
+        state.error.getTrackProgress = action.payload;
+      })
+      .addCase(checkTrackCompletion.pending, (state) => {
+        state.loading.checkTrackCompletion = true;
+        state.error.checkTrackCompletion = '';
+      })
+      .addCase(checkTrackCompletion.fulfilled, (state, action) => {
+        state.loading.checkTrackCompletion = false;
+        state.trackCompletionStatus = action.payload;
+      })
+      .addCase(checkTrackCompletion.rejected, (state, action) => {
+        state.loading.checkTrackCompletion = false;
+        state.trackCompletionStatus = null;
+        state.error.checkTrackCompletion = action.payload;
+      })
+      .addCase(updateTrackProgressByCourse.pending, (state) => {
+        state.loading.updateTrackProgressByCourse = true;
+        state.error.updateTrackProgressByCourse = '';
+      })
+      .addCase(updateTrackProgressByCourse.fulfilled, (state, action) => {
+        state.loading.updateTrackProgressByCourse = false;
+
+        const updatedTracks = action.payload?.trackProgress || [];
+        if (state.currentTrackProgress?._id) {
+          const matchedTrack = updatedTracks.find((item) => {
+            const itemTrackId = item?.trackId?._id || item?.trackId;
+            const currentTrackId =
+              state.currentTrackProgress?.trackId?._id ||
+              state.currentTrackProgress?.trackId;
+            return itemTrackId === currentTrackId;
+          });
+
+          if (matchedTrack) {
+            state.currentTrackProgress = matchedTrack;
+          }
+        }
+      })
+      .addCase(updateTrackProgressByCourse.rejected, (state, action) => {
+        state.loading.updateTrackProgressByCourse = false;
+        state.error.updateTrackProgressByCourse = action.payload;
       });
   },
 });
 
-export const { clearSelectedCourseTrack } = courseTracksSlice.actions;
+export const { clearSelectedCourseTrack, clearTrackProgressState } =
+  courseTracksSlice.actions;
 export const courseTracksReducer = courseTracksSlice.reducer;

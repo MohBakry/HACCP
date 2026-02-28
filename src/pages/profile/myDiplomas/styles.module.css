@@ -1,0 +1,32 @@
+.trackCard {
+  border: 1px solid #e7edf3;
+  box-shadow: 0 8px 22px rgba(1, 47, 90, 0.08);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  height: 100%;
+}
+
+.trackCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(1, 47, 90, 0.14);
+}
+
+.trackImage {
+  height: 180px;
+  object-fit: cover;
+}
+
+.trackTitle {
+  color: #012f5a;
+  font-weight: 700;
+}
+
+.summaryCard {
+  border: 1px solid #dbe8f3;
+  box-shadow: 0 8px 22px rgba(1, 47, 90, 0.08);
+}
+
+.courseProgressCard {
+  border: 1px solid #ecf1f6;
+}
