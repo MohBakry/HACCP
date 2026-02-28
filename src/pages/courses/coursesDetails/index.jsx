@@ -11,6 +11,33 @@ import {
   getEnrolledCourses,
 } from '../../../Redux/courses/courses.service';
 
+const renderStars = (rating) => {
+  const stars = [];
+  const fullStars = Math.floor(rating);
+  const hasHalfStar = rating % 1 !== 0;
+
+  for (let i = 0; i < 5; i++) {
+    if (i < fullStars) {
+      stars.push(
+        <i key={i} className="fas fa-star" style={{ color: '#ffc107' }}></i>
+      );
+    } else if (i === fullStars && hasHalfStar) {
+      stars.push(
+        <i
+          key={i}
+          className="fas fa-star-half-alt"
+          style={{ color: '#ffc107' }}
+        ></i>
+      );
+    } else {
+      stars.push(
+        <i key={i} className="far fa-star" style={{ color: '#ddd' }}></i>
+      );
+    }
+  }
+  return stars;
+};
+
 const CourseDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -135,7 +162,27 @@ const CourseDetails = () => {
                 </div>
                 <div>
                   <i className="fas fa-star me-2 text-warning"></i>
-                  <strong>Rating:</strong> {courseDetails.rating || 'N/A'}
+                  <strong>Rating:</strong>
+                  <span className="ms-2">
+                    {renderStars(
+                      courseDetails.averageRating ?? courseDetails.rating ?? 0
+                    )}
+                  </span>
+                  <span className="ms-2" style={{ fontSize: '0.95rem' }}>
+                    {courseDetails.averageRating
+                      ? courseDetails.averageRating.toFixed(1)
+                      : courseDetails.rating || 'N/A'}
+                    {courseDetails.totalReviews !== undefined &&
+                      courseDetails.totalReviews > 0 && (
+                        <span className="text-muted ms-2">
+                          ({courseDetails.totalReviews}{' '}
+                          {courseDetails.totalReviews === 1
+                            ? 'review'
+                            : 'reviews'}
+                          )
+                        </span>
+                      )}
+                  </span>
                 </div>
                 <div>
                   <i className="fas fa-signal me-2 text-success"></i>

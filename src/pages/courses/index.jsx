@@ -80,6 +80,8 @@ export default function Courses() {
                   viewMode={viewMode}
                   introVideo={course.introVideoUrl}
                   _id={course._id}
+                  averageRating={course.averageRating}
+                  totalReviews={course.totalReviews}
                 />
 
                 {/* <div className="mt-1">

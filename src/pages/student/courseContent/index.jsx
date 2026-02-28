@@ -8,10 +8,15 @@ import ModuleItem from './components/ModuleItem';
 import MaterialPreviewModal from './components/MaterialPreviewModal';
 import AssessmentSubmissionModal from './components/AssessmentSubmissionModal';
 import FinalExamSection from './components/FinalExamSection';
+import ReviewPromptModal from './components/ReviewPromptModal';
 import {
   getStudentCourseContent,
   submitAssessment,
 } from '../../../Redux/courseContent/courseContent.service';
+import {
+  getMyReview,
+  submitOrUpdateReview,
+} from '../../../Redux/reviews/reviews.service';
 import { useToast } from '../../../shared/toast/useToast';
 import styles from './styles.module.css';
 
@@ -29,16 +34,44 @@ export default function StudentCourseContent() {
   const [assessmentText, setAssessmentText] = useState('');
   const [assessmentFile, setAssessmentFile] = useState(null);
   const [submitting, setSubmitting] = useState(false);
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [reviewPromptShown, setReviewPromptShown] = useState(false);
 
   const { courseContent, loading, error } = useSelector(
     (state) => state.courseContent
+  );
+  const { myReview, loading: reviewLoading } = useSelector(
+    (state) => state.reviews
   );
 
   useEffect(() => {
     if (courseId && groupId) {
       dispatch(getStudentCourseContent({ courseId, groupId }));
+      dispatch(getMyReview(courseId));
     }
   }, [courseId, groupId, dispatch]);
+
+  // Check if we should show the review prompt
+  useEffect(() => {
+    if (
+      !reviewPromptShown &&
+      courseContent?.progress?.overallProgress > 30 &&
+      myReview === null &&
+      !reviewLoading.getMyReview
+    ) {
+      const timer = setTimeout(() => {
+        setShowReviewModal(true);
+        setReviewPromptShown(true);
+      }, 2000); // Show after 2 seconds
+
+      return () => clearTimeout(timer);
+    }
+  }, [
+    courseContent?.progress?.overallProgress,
+    myReview,
+    reviewPromptShown,
+    reviewLoading.getMyReview,
+  ]);
 
   // Handle API errors with toast
   useEffect(() => {
@@ -289,6 +322,20 @@ export default function StudentCourseContent() {
   const hasPassedFinalExam = Boolean(courseContent?.finalExam?.passed);
   const hasFailedFinalExam = hasFinalExamAttempt && !hasPassedFinalExam;
 
+  const handleSubmitReview = async ({ rating, reviewText }) => {
+    try {
+      await dispatch(
+        submitOrUpdateReview({ courseId, rating, reviewText })
+      ).unwrap();
+
+      showSuccess('Thank you for your review! Your feedback is valuable.');
+      setShowReviewModal(false);
+      dispatch(getMyReview(courseId));
+    } catch (error) {
+      showError(error || 'Failed to submit review. Please try again.');
+    }
+  };
+
   if (loading.getStudentCourseContent) {
     return <LoadingSpinner />;
   }
@@ -377,6 +424,15 @@ export default function StudentCourseContent() {
         setAssessmentFile={setAssessmentFile}
         submitting={submitting}
         onSubmit={handleSubmitAssessment}
+      />
+
+      {/* Review Prompt Modal */}
+      <ReviewPromptModal
+        show={showReviewModal}
+        onHide={() => setShowReviewModal(false)}
+        onSubmit={handleSubmitReview}
+        submitting={reviewLoading.submitOrUpdateReview}
+        courseId={courseId}
       />
     </div>
   );

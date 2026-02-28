@@ -1,22 +1,22 @@
-import React, { useState } from "react";
-import styles from "./styles.module.css";
+import React, { useState } from 'react';
+import styles from './styles.module.css';
 // import img from "../../assets/images/About.png";
 
-import event2 from "../../../assets/images/event2.jpg";
-import CourseCard from "../../../shared/CourseCard";
+import event2 from '../../../assets/images/event2.jpg';
+import CourseCard from '../../../shared/CourseCard';
 
 export default function CurrentCourses() {
   const courses = [
     {
       id: 2,
       image: event2,
-      duration: "54h",
-      title: "Advanced Android 12 & Kotlin Development Course",
+      duration: '54h',
+      title: 'Advanced Android 12 & Kotlin Development Course',
       rating: 4.5,
       price: 299,
     },
   ];
-  const [viewMode, setViewMode] = useState("grid");
+  const [viewMode, setViewMode] = useState('grid');
   return (
     <div>
       <div className="py-3 py-md-5">
@@ -29,18 +29,18 @@ export default function CurrentCourses() {
             <div className={`${styles.viewToggle} w-100 col-md`}>
               <button
                 className={`${styles.viewButton} ${
-                  viewMode === "grid" ? styles.active : ""
+                  viewMode === 'grid' ? styles.active : ''
                 } px-0`}
-                onClick={() => setViewMode("grid")}
+                onClick={() => setViewMode('grid')}
               >
                 <i className="fa fa-th-large" aria-hidden="true"></i> Grid
               </button>
 
               <button
                 className={`${styles.viewButton} ${
-                  viewMode === "list" ? styles.active : ""
+                  viewMode === 'list' ? styles.active : ''
                 } px-3`}
-                onClick={() => setViewMode("list")}
+                onClick={() => setViewMode('list')}
               >
                 <i className="fa fa-list" aria-hidden="true"></i> List
               </button>
@@ -56,7 +56,7 @@ export default function CurrentCourses() {
         </div>
         <div
           className={`${
-            viewMode === "list" ? "" : ""
+            viewMode === 'list' ? '' : ''
           } p-2 p-lg-5 container row mx-auto`}
         >
           {/* <div className={` `}> */}
@@ -64,7 +64,7 @@ export default function CurrentCourses() {
             <div
               key={index}
               className={` ${
-                viewMode === "grid" ? "col-12 col-md-6 col-lg-4" : "col-12"
+                viewMode === 'grid' ? 'col-12 col-md-6 col-lg-4' : 'col-12'
               } my-3`}
             >
               <CourseCard
@@ -72,13 +72,14 @@ export default function CurrentCourses() {
                 image={course.image}
                 duration="In Progress"
                 title={course.title}
-                rating={course.rating}
+                averageRating={course.averageRating}
+                totalReviews={course.totalReviews}
                 viewMode={viewMode}
-                redirectTo={"/courseContent"}
+                redirectTo={'/courseContent'}
               />
 
               <div className="progress">
-                <div className="progress-bar" style={{ width: "60%" }}>
+                <div className="progress-bar" style={{ width: '60%' }}>
                   60%
                 </div>
               </div>

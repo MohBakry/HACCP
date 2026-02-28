@@ -13,6 +13,7 @@ import { examsReducer } from './exams/exams.store';
 import { groupModulesReducer } from './groupModules/groupModules.store';
 import { examAttemptsReducer } from './examAttempts/examAttempts.store';
 import profileReducer from './profile/profile.store';
+import { reviewsReducer } from './reviews/reviews.store';
 
 export let store = configureStore({
   reducer: {
@@ -29,5 +30,6 @@ export let store = configureStore({
     groupModules: groupModulesReducer,
     examAttempts: examAttemptsReducer,
     profile: profileReducer,
+    reviews: reviewsReducer,
   },
 });

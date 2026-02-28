@@ -31,6 +31,8 @@ const PopularCourses = () => {
                     title={course.title}
                     rating={course.rating}
                     price={course.price}
+                    averageRating={course.averageRating}
+                    totalReviews={course.totalReviews}
                     _id={course._id}
                   />
                 </div>

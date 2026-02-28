@@ -67,16 +67,23 @@
 .ratingSection {
   display: flex;
   align-items: center;
+  gap: 0.3rem;
 }
 
 .stars {
   color: #ffc107;
-  margin-right: 0.3rem;
 }
 
 .rating {
   font-size: 0.85rem;
   color: #555;
+  font-weight: 500;
+}
+
+.reviewCount {
+  font-size: 0.8rem;
+  color: #777;
+  margin-left: 0.2rem;
 }
 
 .price {

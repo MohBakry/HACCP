@@ -1,40 +1,40 @@
-import React, { useState } from "react";
-import styles from "./styles.module.css";
+import React, { useState } from 'react';
+import styles from './styles.module.css';
 // import img from "../../assets/images/About.png";
 
-import event1 from "../../../assets/images/event1.jpg";
-import event2 from "../../../assets/images/event2.jpg";
-import event3 from "../../../assets/images/event3.jpg";
-import CourseCard from "../../../shared/CourseCard";
+import event1 from '../../../assets/images/event1.jpg';
+import event2 from '../../../assets/images/event2.jpg';
+import event3 from '../../../assets/images/event3.jpg';
+import CourseCard from '../../../shared/CourseCard';
 
 export default function CompletedCourses() {
   const courses = [
     {
       id: 1,
       image: event1, // Replace with actual image paths
-      duration: "23h",
-      title: "Education Software and PHP and JS System Script",
+      duration: '23h',
+      title: 'Education Software and PHP and JS System Script',
       rating: 4.5,
       price: 199,
     },
     {
       id: 2,
       image: event2,
-      duration: "54h",
-      title: "Advanced Android 12 & Kotlin Development Course",
+      duration: '54h',
+      title: 'Advanced Android 12 & Kotlin Development Course',
       rating: 4.5,
       price: 299,
     },
     {
       id: 3,
       image: event3,
-      duration: "23h",
-      title: "Learn Figma – UI/UX Design Essential Training",
+      duration: '23h',
+      title: 'Learn Figma – UI/UX Design Essential Training',
       rating: 2.5,
       price: 199,
     },
   ];
-  const [viewMode, setViewMode] = useState("grid");
+  const [viewMode, setViewMode] = useState('grid');
   return (
     <div>
       <div className="py-3 py-md-5">
@@ -47,18 +47,18 @@ export default function CompletedCourses() {
             <div className={`${styles.viewToggle} w-100 col-md`}>
               <button
                 className={`${styles.viewButton} ${
-                  viewMode === "grid" ? styles.active : ""
+                  viewMode === 'grid' ? styles.active : ''
                 } px-0`}
-                onClick={() => setViewMode("grid")}
+                onClick={() => setViewMode('grid')}
               >
                 <i className="fa fa-th-large" aria-hidden="true"></i> Grid
               </button>
 
               <button
                 className={`${styles.viewButton} ${
-                  viewMode === "list" ? styles.active : ""
+                  viewMode === 'list' ? styles.active : ''
                 } px-3`}
-                onClick={() => setViewMode("list")}
+                onClick={() => setViewMode('list')}
               >
                 <i className="fa fa-list" aria-hidden="true"></i> List
               </button>
@@ -74,7 +74,7 @@ export default function CompletedCourses() {
         </div>
         <div
           className={`${
-            viewMode === "list" ? "" : ""
+            viewMode === 'list' ? '' : ''
           } p-2 p-lg-5 container row mx-auto`}
         >
           {/* <div className={` `}> */}
@@ -82,7 +82,7 @@ export default function CompletedCourses() {
             <div
               key={index}
               className={` ${
-                viewMode === "grid" ? "col-12 col-md-6 col-lg-4" : "col-12"
+                viewMode === 'grid' ? 'col-12 col-md-6 col-lg-4' : 'col-12'
               } my-3`}
             >
               <CourseCard
@@ -90,7 +90,8 @@ export default function CompletedCourses() {
                 image={course.image}
                 duration="Completed"
                 title={course.title}
-                rating={course.rating}
+                averageRating={course.averageRating}
+                totalReviews={course.totalReviews}
                 viewMode={viewMode}
               />
             </div>

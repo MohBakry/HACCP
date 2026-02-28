@@ -10,6 +10,8 @@ const CourseCard = ({
   duration,
   title,
   rating,
+  averageRating,
+  totalReviews,
   price,
   discount = 0,
   viewMode = 'grid',
@@ -175,8 +177,17 @@ const CourseCard = ({
 
         <div className={`${styles.cardFooter} d-flex flex-wrap w-100`}>
           <div className={styles.ratingSection}>
-            <div className={styles.stars}>{renderStars(rating)}</div>
-            <span className={styles.rating}>({rating})</span>
+            <div className={styles.stars}>
+              {renderStars(averageRating ?? rating ?? 0)}
+            </div>
+            <span className={styles.rating}>
+              {averageRating ? averageRating.toFixed(1) : rating || '0.0'}
+            </span>
+            {totalReviews !== undefined && totalReviews > 0 && (
+              <span className={styles.reviewCount}>
+                ({totalReviews} {totalReviews === 1 ? 'review' : 'reviews'})
+              </span>
+            )}
           </div>
 
           <div
